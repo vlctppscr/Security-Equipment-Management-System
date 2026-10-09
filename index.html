@@ -38,7 +38,7 @@ header{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:
 .hr{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 #clk{color:#7dd3fc;font-size:.82rem}
 main{padding:18px 20px 40px}
-h1{margin:0 0 14px;font-size:1.05rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+h1{margin:0 0 14px;font-size:1.3rem;font-weight:800;letter-spacing:.01em;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
 h1::before{content:'';width:5px;height:1.15em;border-radius:9px;background:linear-gradient(var(--ac),var(--ok))}
 .tb{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center;letter-spacing:0;text-transform:none}
 /* controls */
@@ -53,17 +53,17 @@ h1::before{content:'';width:5px;height:1.15em;border-radius:9px;background:linea
 select.in{appearance:auto}
 textarea.in{resize:vertical;min-height:70px}
 input[type=date]::-webkit-calendar-picker-indicator,input[type=datetime-local]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(2);cursor:pointer}
-label.f{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:5px}
+label.f{display:block;font-size:.76rem;letter-spacing:.02em;color:var(--mu);font-weight:600;margin-bottom:5px}
 /* cards */
 .card{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--ln);border-radius:18px;padding:1rem 1.2rem;box-shadow:0 18px 40px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.05);min-width:0}
 .card:hover{border-color:rgba(255,255,255,.14)}
-.ct{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap}
+.ct{font-size:.9rem;font-weight:800;letter-spacing:.01em;display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap}
 .ct small{font-weight:500;color:var(--mu);letter-spacing:0;text-transform:none;font-size:.7rem;margin-left:auto}
 .dt{width:8px;height:8px;border-radius:50%;box-shadow:0 0 10px currentColor;background:currentColor;display:inline-block;flex:none}
 .g{display:grid;gap:12px;margin-bottom:12px}
 .k6{grid-template-columns:repeat(6,minmax(0,1fr))}.k5{grid-template-columns:repeat(5,minmax(0,1fr))}.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .c2{grid-template-columns:1fr 1.6fr}.c3{grid-template-columns:1.5fr 1fr 1fr}.c3b{grid-template-columns:1fr 1fr 1.2fr}
-.kl{font-size:.64rem;letter-spacing:.17em;text-transform:uppercase;color:var(--mu);font-weight:700}
+.kl{font-size:.76rem;letter-spacing:.02em;color:var(--mu);font-weight:700}
 .kv{font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-top:.25rem;font-variant-numeric:tabular-nums}
 .ks{font-size:.68rem;color:#8b99b3;margin-top:.15rem}
 .kc{position:relative;overflow:hidden}.kc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--ac),var(--ok));opacity:.9}
@@ -82,7 +82,7 @@ label.f{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:upper
 /* tables */
 .tw{overflow:auto}
 table{width:100%;border-collapse:collapse}
-th{font-size:.64rem;text-transform:uppercase;letter-spacing:.09em;color:#7dd3fc;font-weight:600;text-align:left;padding:.6rem .7rem;border-bottom:1px solid rgba(56,189,248,.35);white-space:nowrap}
+th{font-size:.76rem;letter-spacing:.02em;color:#7dd3fc;font-weight:600;text-align:left;padding:.6rem .7rem;border-bottom:1px solid rgba(56,189,248,.35);white-space:nowrap}
 td{padding:.55rem .7rem;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:middle}
 tbody tr:hover>td{background:rgba(56,189,248,.06)}
 .bdg{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;border:1px solid;cursor:pointer;background:transparent}
@@ -180,7 +180,7 @@ input[type=time]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(
  html.dash .main{display:flex;flex-direction:column;height:100vh;min-height:0}
  html.dash main{flex:1;min-height:0;padding:10px 18px 12px;overflow:hidden}
  .dfit{height:100%;display:flex;flex-direction:column;gap:9px;min-height:0}
- .dfit>h1{margin:0;flex:none;font-size:.95rem}
+ .dfit>h1{margin:0;flex:none;font-size:1.15rem}
  .dfit .g{margin:0;min-height:0}
  .dfit .g:not(.k6){flex:1 1 0;display:grid;grid-template-rows:minmax(0,1fr)}
  .dfit .g.k6{flex:none}
@@ -195,8 +195,8 @@ input[type=time]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(
  .dfit .off{padding:.22rem 0;font-size:.74rem}
  .dfit .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;align-content:start}
  .dfit .tr{width:100%;height:100%!important}
- .dfit .rg svg{height:100%;max-height:150px;width:auto}
- .dfit .dn svg{height:100%;max-height:150px;width:auto}
+ .dfit .rg svg{height:100%;max-height:170px;width:auto}
+ .dfit .dn svg{height:100%;max-height:170px;width:auto}
  .dfit .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-content:center}
  .dfit .empty{padding:.6rem}
 }
@@ -212,12 +212,14 @@ input[type=time]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(
 @keyframes dxdraw{from{stroke-dashoffset:1}}
 @keyframes dxfade{from{opacity:0}}
 @keyframes dxpg{0%{transform:scale(1);opacity:.8}100%{transform:scale(3.2);opacity:0}}
+.tr,.rg svg,.dn svg{shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+.tr text{font-family:inherit}
 .dxping{transform-box:fill-box;transform-origin:center;animation:dxpg 2s ease-out infinite}
-.dx-a .da{animation:dxin .65s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*70ms)}
-.dx-a .bar i{transform-origin:left;animation:dxgrow 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms + 250ms)}
-.dx-a .dxrg,.dx-a .dxdn{animation:dxring 1.4s cubic-bezier(.2,.8,.2,1) both}
-.dx-a .dxline{stroke-dasharray:1;animation:dxdraw 1.8s cubic-bezier(.4,0,.2,1) both .3s}
-.dx-a .dxarea{animation:dxfade 1.4s ease both 1s}
+.dx-a .da{animation:dxin .65s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--d,0)*70ms)}
+.dx-a .bar i{transform-origin:left;animation:dxgrow 1.1s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*45ms + 250ms)}
+.dx-a .dxrg,.dx-a .dxdn{animation:dxring 1.4s cubic-bezier(.2,.8,.2,1) backwards}
+.dx-a .dxline{stroke-dasharray:1;animation:dxdraw 1.8s cubic-bezier(.4,0,.2,1) backwards .3s}
+.dx-a .dxarea{animation:dxfade 1.4s ease backwards 1s}
 @media (prefers-reduced-motion:reduce){.dx-a *,.dxping{animation:none!important}}
 /* live badge pulse + header links + disabled next */
 @keyframes lvp{70%{box-shadow:0 0 0 7px rgba(var(--c),0)}100%{box-shadow:0 0 0 0 rgba(var(--c),0)}}
@@ -260,6 +262,63 @@ html.th-mono,html.th-mono body{background:#080808}
  .card{break-inside:avoid;backdrop-filter:none}
  main{padding:0}
 }
+
+/* ===== CCTV Uptime Tracker look: typography (all themes) ===== */
+:root{--sbt:transparent;--sbh:rgba(125,140,168,.32);--sbh2:rgba(56,189,248,.55)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono){--sbt:#0a0a0c;--sbh:rgba(255,255,255,.17);--sbh2:rgba(255,255,255,.3)}
+html.th-blue{--sbt:#050d1f;--sbh:#1d3f91;--sbh2:#2f5fd0}
+*{scrollbar-color:var(--sbh) var(--sbt)}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:var(--sbt)}
+::-webkit-scrollbar-thumb{background:var(--sbh);border:2px solid var(--sbt);border-radius:8px;background-clip:border-box}
+::-webkit-scrollbar-thumb:hover{background:var(--sbh2);border:2px solid var(--sbt);background-clip:border-box}
+html,body{font-family:ui-sans-serif,system-ui,'Segoe UI',sans-serif;font-weight:500;letter-spacing:0;-webkit-font-smoothing:auto;text-rendering:optimizeLegibility}
+svg text{font-family:ui-sans-serif,system-ui,'Segoe UI',sans-serif;font-weight:600}
+.mono,#clk,.ddp,.pv,.off .r em{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace}
+h1{font-size:1.125rem;font-weight:700;letter-spacing:.025em;text-transform:uppercase}
+.dfit>h1{font-size:1.125rem}
+.ct{font-size:.88rem;font-weight:700;color:#e6ecf7;letter-spacing:.01em}
+.kl{font-size:.64rem;letter-spacing:.17em;text-transform:uppercase;color:#a3b2cc;font-weight:700}
+.kv{font-size:1.85rem;font-weight:600;letter-spacing:-.02em}
+.ks{color:#a9b6cd}
+th{font-size:.72rem;font-weight:700;letter-spacing:.01em}
+.btn{font-weight:500}
+.brand{font-weight:600}
+.dfit .ct{font-size:.8rem;margin-bottom:.3rem}
+.dfit .ctg{margin-bottom:.7rem}
+.dfit .kl{font-size:.58rem;letter-spacing:.14em}
+.dfit .kv{font-size:1.3rem;line-height:1.1;margin-top:.1rem}
+.dfit .ks{font-size:.62rem;margin-top:.05rem}
+.dfit .rw .t{font-weight:600}
+.dfit .card{padding:.55rem .8rem;border-radius:14px}
+.dfit .kc{padding:.45rem .8rem}
+.emc{display:flex;align-items:center;justify-content:center;text-align:center;min-height:90px;height:100%}
+.ttl{font-weight:700;font-size:1.125rem}
+/* ===== Black theme: CCTV boxes, header, sidebar ===== */
+html:not(.th-blue):not(.th-aurora):not(.th-mono),html:not(.th-blue):not(.th-aurora):not(.th-mono) body{background:#0a0a0c}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .card{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015)),#0a0a0c;border:1px solid rgba(255,255,255,.075);border-radius:20px;box-shadow:0 24px 50px -28px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(10px);transition:border-color .3s,transform .3s}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .card:hover{border-color:rgba(255,255,255,.14)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .dfit .card{border-radius:14px}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) #sb,html:not(.th-blue):not(.th-aurora):not(.th-mono) header{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015)),#0a0a0c;border-color:rgba(255,255,255,.075)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .ddp{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .dfit{position:relative}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .dfit::before{content:'';position:absolute;inset:-30px -20px;background:radial-gradient(520px 260px at 85% -5%,rgba(56,189,248,.09),transparent 70%),radial-gradient(460px 260px at 0 30%,rgba(52,211,153,.06),transparent 70%);pointer-events:none;z-index:-1}
+/* ===== Blue theme: CCTV boxes ===== */
+html.th-blue .card{background:linear-gradient(180deg,#0c1c40,#081430);border:1px solid #1d3f91;border-radius:14px;box-shadow:none;backdrop-filter:none;transition:border-color .3s}
+html.th-blue .card:hover{border-color:#38bdf8}
+html.th-blue .bar{background:rgba(125,211,252,.12)}
+html.th-blue .ddp{background:rgba(56,189,248,.1);border-color:#38bdf8}
+/* ===== Black + Blue: sidebar selection box, title, header links, no accent bars ===== */
+html:not(.th-aurora):not(.th-mono) #nav button{gap:.75rem;padding:.625rem .75rem;border-radius:.5rem;font-size:.875rem;font-weight:500;color:#94a3b8}
+html:not(.th-aurora):not(.th-mono) #nav button svg{width:16px;height:16px;color:currentColor}
+html:not(.th-aurora):not(.th-mono) #nav button:hover{background:rgba(255,255,255,.05);transform:none}
+html:not(.th-aurora):not(.th-mono) #nav button.on{background:rgba(14,165,233,.15);border-color:rgba(14,165,233,.4);color:#7dd3fc;box-shadow:none}
+html:not(.th-aurora):not(.th-mono) #nav button.on svg{color:currentColor}
+html:not(.th-aurora):not(.th-mono) .ttl{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#e2e8f0}
+html:not(.th-aurora):not(.th-mono) #hl .hl,html:not(.th-aurora):not(.th-mono) #hl .hl.on{font-size:.75rem;font-weight:500;color:#94a3b8}
+html:not(.th-aurora):not(.th-mono) #hl .hl:hover{color:#e2e8f0}
+html:not(.th-aurora):not(.th-mono) h1::before,html:not(.th-aurora):not(.th-mono) .kc::before{display:none}
+html:not(.th-aurora):not(.th-mono) .ddp{border-radius:.55rem;padding:.38rem .7rem}
 </style></head><body>
 <div class="wrap">
 <div id="sbbk" class="noprint" onclick="sbT(0)"></div>
@@ -390,34 +449,43 @@ function R(){
  const m=$('#main');document.documentElement.classList.toggle('dash',V.sec==='dash');
  if(V.sec==='dash')m.innerHTML=vDash();else if(V.sec==='ev')m.innerHTML=vEvents();else if(V.sec==='intox'){m.innerHTML=vIntox();intoxList();if(V.edit)intoxFill(V.edit);else intoxReset()}else if(V.sec==='set')m.innerHTML=vSet();else if(V.sec==='mx')m.innerHTML=vMaster();else m.innerHTML=vEq(V.sec);
  const gw=$('.gw');if(gw&&!R.keep)gw.scrollLeft=gw.scrollWidth;
+ if(V.sec==='dash')dashFit(1);
 }
 setInterval(()=>{const d=new Date();$('#clk').textContent=p2(d.getDate())+'/'+p2(d.getMonth()+1)+'/'+d.getFullYear()+' '+p2(d.getHours())+':'+p2(d.getMinutes())+':'+p2(d.getSeconds())},1000);
 
 /* ---------- charts ---------- */
-function ring(items){ // items:[{p,c}]
- let h='<svg viewBox="0 0 120 120" width="130" height="130">';
- items.forEach((x,i)=>{const r=52-i*14,C=2*Math.PI*r,p=Math.max(0,Math.min(100,x.p||0));
-  h+='<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="'+x.c+'" stroke-opacity=".16" stroke-width="10"/><circle cx="60" cy="60" r="'+r+'" fill="none" stroke="'+x.c+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(C*p/100)+' '+C+'" transform="rotate(-90 60 60)" class="dxrg" style="filter:drop-shadow(0 0 5px '+x.c+');animation-delay:'+(i*150)+'ms"/>'});
+function ring(items){ // items:[{p,c}] – 220 unit viewBox for crisp rendering
+ let h='<svg viewBox="0 0 220 220" width="150" height="150">';
+ items.forEach((x,i)=>{const r=94-i*24,C=2*Math.PI*r,p=Math.max(0,Math.min(100,x.p||0));
+  h+='<circle cx="110" cy="110" r="'+r+'" fill="none" stroke="'+x.c+'" stroke-opacity=".16" stroke-width="17"/><circle cx="110" cy="110" r="'+r+'" fill="none" stroke="'+x.c+'" stroke-width="17" stroke-linecap="round" stroke-dasharray="'+(C*p/100).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 110 110)" class="dxrg" style="filter:drop-shadow(0 0 4px '+x.c+'88);animation-delay:'+(i*150)+'ms"/>'});
  return h+'</svg>'}
 function donut(parts,center,sub){
  const tot=parts.reduce((a,b)=>a+b.v,0)||1,r=44,C=2*Math.PI*r;let off=0,h='<svg viewBox="0 0 120 120" width="150" height="150"><circle cx="60" cy="60" r="'+r+'" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="13"/>';
  parts.forEach((p,pi)=>{const l=C*p.v/tot;if(p.v>0)h+='<circle class="dxdn" style="animation-delay:'+(pi*120)+'ms" cx="60" cy="60" r="'+r+'" fill="none" stroke="'+p.c+'" stroke-width="13" stroke-dasharray="'+Math.max(0,l-1.5)+' '+(C-Math.max(0,l-1.5))+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 60 60)"/>';off+=l});
  return h+'<text x="60" y="60" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">'+center+'</text><text x="60" y="76" text-anchor="middle" font-size="7" letter-spacing="1.5" fill="#7f8ea8">'+sub+'</text></svg>'}
-function trend(days,fn){
- const W=640,H=210,L=44,Rr=14,T=14,B=28,vals=days.map(fn);const real=vals.filter(v=>v!=null);
+function trend(days,fn,W,H){ // W,H = real pixel size of the container (1 unit = 1 px, so text stays sharp)
+ W=W||640;H=H||210;const L=48,Rr=18,T=16,B=30,vals=days.map(fn);const real=vals.filter(v=>v!=null);
  const mn=real.length?Math.min(...real):100;let lo=Math.min(90,Math.floor(mn/5)*5);if(lo>=100)lo=90;const hi=100;
  const x=i=>L+(days.length<2?(W-L-Rr)/2:i*(W-L-Rr)/(days.length-1)),y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
- let h='<svg viewBox="0 0 '+W+' '+H+'" class="tr" style="width:100%;height:auto"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22c55e" stop-opacity=".4"/><stop offset="1" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>';
- for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;h+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="rgba(255,255,255,.07)"/><text x="'+(L-6)+'" y="'+(y(v)+3)+'" text-anchor="end" font-size="9" fill="#8b99b3">'+(Math.round(v*10)/10)+'%</text>'}
- if(TARGET>=lo)h+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(TARGET)+'" y2="'+y(TARGET)+'" stroke="#e8c872" stroke-dasharray="3 4" opacity=".8"/><text x="'+(W-Rr)+'" y="'+(y(TARGET)-4)+'" text-anchor="end" font-size="8" font-weight="700" fill="#e8c872">TARGET '+TARGET+'%</text>';
+ let h='<svg viewBox="0 0 '+W+' '+H+'" class="tr" width="'+W+'" height="'+H+'" style="width:100%;height:100%;display:block"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22c55e" stop-opacity=".32"/><stop offset="1" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>';
+ for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;h+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(v).toFixed(1)+'" y2="'+y(v).toFixed(1)+'" stroke="rgba(255,255,255,.07)"/><text x="'+(L-8)+'" y="'+(y(v)+4).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8b99b3">'+(Math.round(v*10)/10)+'%</text>'}
+ if(TARGET>=lo)h+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(TARGET).toFixed(1)+'" y2="'+y(TARGET).toFixed(1)+'" stroke="#e8c872" stroke-dasharray="3 4" opacity=".8"/><text x="'+(W-Rr)+'" y="'+(y(TARGET)-5).toFixed(1)+'" text-anchor="end" font-size="10" font-weight="700" fill="#e8c872">TARGET '+TARGET+'%</text>';
  const pts=days.map((d,i)=>vals[i]==null?null:[x(i),y(vals[i])]).filter(Boolean);
  if(pts.length){const ln=pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
   const dd='M'+pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
-  h+='<polygon class="dxarea" points="'+pts[0][0]+','+(H-B)+' '+ln+' '+pts[pts.length-1][0]+','+(H-B)+'" fill="url(#ga)"/><path class="dxline" d="'+dd+'" pathLength="1" fill="none" stroke="#4ade80" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 6px rgba(74,222,128,.7))"/>';
-  days.forEach((d,i)=>{if(vals[i]!=null)h+='<circle class="dxarea" cx="'+x(i)+'" cy="'+y(vals[i])+'" r="3.4" fill="#0a0a0d" stroke="#4ade80" stroke-width="2"><title>'+dmy(d)+' – '+fp(vals[i])+'</title></circle>'});
+  h+='<polygon class="dxarea" points="'+pts[0][0].toFixed(1)+','+(H-B)+' '+ln+' '+pts[pts.length-1][0].toFixed(1)+','+(H-B)+'" fill="url(#ga)"/><path class="dxline" d="'+dd+'" pathLength="1" fill="none" stroke="#4ade80" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 5px rgba(74,222,128,.55))"/>';
+  days.forEach((d,i)=>{if(vals[i]!=null)h+='<circle class="dxarea" cx="'+x(i).toFixed(1)+'" cy="'+y(vals[i]).toFixed(1)+'" r="3.4" fill="#0a0a0d" stroke="#4ade80" stroke-width="2"><title>'+dmy(d)+' – '+fp(vals[i])+'</title></circle>'});
   const lp=pts[pts.length-1];h+='<circle class="dxping" cx="'+lp[0].toFixed(1)+'" cy="'+lp[1].toFixed(1)+'" r="4" fill="none" stroke="#4ade80"/>'}
- const step=Math.ceil(days.length/9);days.forEach((d,i)=>{if(i%step===0||i===days.length-1)h+='<text x="'+x(i)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#8b99b3">'+d.slice(8)+'-'+d.slice(5,7)+'</text>'});
+ const step=Math.ceil(days.length/Math.max(3,Math.floor((W-L-Rr)/60)));days.forEach((d,i)=>{if(i%step===0||i===days.length-1)h+='<text x="'+x(i).toFixed(1)+'" y="'+(H-9)+'" text-anchor="middle" font-size="11" fill="#8b99b3">'+d.slice(8)+'-'+d.slice(5,7)+'</text>'});
  return h+'</svg>'}
+function dashFit(first){
+ if(V.sec!=='dash'||!V.tr)return;const c=document.getElementById('trc');if(!c)return;
+ const w=Math.round(c.clientWidth);if(w<160)return;
+ const fit=window.matchMedia&&matchMedia('(min-width:1024px) and (min-height:600px)').matches;
+ const H=fit?Math.round(c.clientHeight):Math.max(170,Math.min(260,Math.round(w*0.45)));if(H<90)return;
+ if(!first){const f=document.querySelector('.dfit');if(f)f.classList.remove('dx-a')}
+ c.innerHTML=trend(V.tr.d,V.tr.f,w,H)}
+let _rz=0;window.addEventListener('resize',()=>{clearTimeout(_rz);_rz=setTimeout(()=>dashFit(0),150)});
 
 /* ---------- dashboard ---------- */
 function allEq(){const a=[];ES.forEach(s=>S.eq[s.k].forEach(e=>a.push({sec:s.k,e:e})));return a}
@@ -433,10 +501,10 @@ function vDash(){
  const A=V.dxA;V.dxA=0;let bi=0;
  let h='<div class="dfit'+(A?' dx-a':'')+'"><h1>Dashboard<span class="tb">'+per+'<span class="sub mono">'+(V.per==='1d'?dmy(d):dmy(a)+' → '+dmy(b))+'</span></span></h1>';
  let kd=0;const kc=(l,v,s,c)=>'<div class="card kc da" style="--d:'+(kd++)+'"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+'">'+v+'</div><div class="ks">'+s+'</div></div>';
- h+='<div class="g k6">'+kc('Total Equipment',tot,'on '+dmy(d),'#fff')+kc('Working',ok,tot?Math.round(ok/tot*1000)/10+'% of total':'–','#4ade80')+kc('Not Working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(av),'Target '+TARGET+'%',colAv(av))+kc('Intoxication',inc.length,'incidents in period','#22d3ee')+'</div>';
+ h+='<div class="g k6">'+kc('Total equipment',tot,'on '+dmy(d),'#fff')+kc('Working',ok,tot?Math.round(ok/tot*1000)/10+'% of total':'–','#4ade80')+kc('Not working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(av),'Target '+TARGET+'%',colAv(av))+kc('Intoxication',inc.length,'incidents in period','#22d3ee')+'</div>';
  // offline + section availability
  let ol='';
- if(!off.length)ol='<div class="empty">All equipment is working ✔</div>';
+ if(!off.length)ol='<div class="empty emc">All equipment is working ✔</div>';
  else ol=off.map(o=>{const r=S.st[sK(o.x.sec,o.x.e.id,d)]||{},n=streak(o.x.sec,o.x.e,d);
   return'<div class="off"><div><b>'+esc(secOf(o.x.sec).n)+' · '+esc(o.x.e.name)+'</b><div class="sub">'+esc(o.x.e.loc||'—')+(o.x.e.code?' · '+esc(o.x.e.code):'')+'</div></div><div class="r"><em>'+n+' day'+(n>1?'s':'')+'</em>'+ST[o.s].n+(r.r?' · '+esc(r.r):'')+'</div></div>'}).join('');
  h+='<div class="g c2 fr2"><div class="card da" style="--d:4"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Currently not working<small>'+off.length+'</small></div><div class="cb sc">'+ol+'</div></div>';
@@ -447,17 +515,17 @@ function vDash(){
  const tdays=rng(START,d).slice(-31);
  const dayAv=dd=>{let o=0,t=0;all.forEach(x=>{const s=stAt(x.sec,x.e,dd);if(s!=='nd'){t++;if(s==='ok')o++}});return t?o/t*100:null};
  const nowP=tot?ok/tot*100:0,evP=tot?noEv/Math.max(1,all.filter(x=>eqStats(x.sec,x.e,a,b).t).length)*100:0;
- h+='<div class="g c3b fr3" style="grid-template-columns:1.6fr 1fr 1fr"><div class="card da" style="--d:6"><div class="ct"><span class="dt" style="color:#22c55e"></span>Availability trend<small>daily · last '+tdays.length+' days</small></div><div class="cb">'+trend(tdays,dayAv)+'</div></div>';
- h+='<div class="card da" style="--d:7"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Activity<small>'+dmy(d)+'</small></div><div class="cb" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div class="rg" style="height:100%;display:flex;align-items:center">'+ring([{p:av||0,c:'#f43f5e'},{p:nowP,c:'#a3e635'},{p:evP,c:'#22d3ee'}])+'</div><div><div class="kl" style="color:#fb7185">Availability</div><div class="kv" style="font-size:1.35rem">'+fp(av)+'</div><div class="kl" style="color:#a3e635;margin-top:8px">Working now</div><div class="kv" style="font-size:1.1rem">'+ok+' / '+tot+'</div><div class="kl" style="color:#22d3ee;margin-top:8px">Event-free</div><div class="kv" style="font-size:1.1rem">'+noEv+' / '+all.length+'</div></div></div></div>';
+ h+='<div class="g c3b fr3" style="grid-template-columns:1.6fr 1fr 1fr"><div class="card da" style="--d:6"><div class="ct"><span class="dt" style="color:#22c55e"></span>Availability trend<small>daily · last '+tdays.length+' days</small></div><div class="cb" id="trc">'+(V.tr={d:tdays,f:dayAv},trend(tdays,dayAv))+'</div></div>';
+ h+='<div class="card da" style="--d:7"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Activity<small>'+dmy(d)+'</small></div><div class="cb" style="display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap"><div class="rg" style="height:100%;display:flex;align-items:center">'+ring([{p:av||0,c:'#f43f5e'},{p:nowP,c:'#a3e635'},{p:evP,c:'#22d3ee'}])+'</div><div><div class="kl" style="color:#fb7185">Availability</div><div class="kv" style="font-size:1.35rem">'+fp(av)+'</div><div class="kl" style="color:#a3e635;margin-top:8px">Working now</div><div class="kv" style="font-size:1.1rem">'+ok+' / '+tot+'</div><div class="kl" style="color:#22d3ee;margin-top:8px">Event-free</div><div class="kv" style="font-size:1.1rem">'+noEv+' / '+all.length+'</div></div></div></div>';
  const parts=ES.map((s,i)=>({n:s.n,v:S.eq[s.k].length,c:PAL[i%PAL.length]}));
  h+='<div class="card da" style="--d:8"><div class="ct"><span class="dt" style="color:#a78bfa"></span>Equipment types</div><div class="cb" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="dn" style="height:100%;display:flex;align-items:center">'+donut(parts,all.length,'EQUIPMENT')+'</div><div class="tgrid" style="flex:1;min-width:110px">'+parts.map(p=>'<div class="lg"><span class="dt" style="color:'+p.c+'"></span>'+p.n+' <b style="margin-left:auto">'+p.v+'</b></div>').join('')+'</div></div></div></div>';
  // reasons / intox gates / sections
  const rs={};let rt=0;all.forEach(x=>rng(a,b).forEach(dd=>{if(dd<x.e.since)return;const r=S.st[sK(x.sec,x.e.id,dd)];if(r&&r.s!=='ok'){const k=r.r||'Unspecified';rs[k]=(rs[k]||0)+1;rt++}}));
  const rl=Object.entries(rs).sort((p,q)=>q[1]-p[1]);
- h+='<div class="g c3b fr4"><div class="card da" style="--d:9"><div class="ct"><span class="dt" style="color:#f59e0b"></span>Downtime by reason<small>'+rt+' equipment-days</small></div><div class="cb sc" style="max-height:none">'+(rl.length?rl.map((r,ri)=>'<div class="rw"><div class="t"><span style="cursor:default">'+esc(r[0])+'</span><span class="pv">'+r[1]+'d · '+Math.round(r[1]/rt*1000)/10+'%</span></div><div class="bar"><i style="--i:'+ri+';width:'+r[1]/rt*100+'%;background:linear-gradient(90deg,#f59e0b,#f43f5e);color:#f59e0b"></i></div></div>').join(''):'<div class="empty">No downtime in this period</div>')+'</div></div>';
+ h+='<div class="g c3b fr4"><div class="card da" style="--d:9"><div class="ct"><span class="dt" style="color:#f59e0b"></span>Downtime by reason<small>'+rt+' equipment-days</small></div><div class="cb sc" style="max-height:none">'+(rl.length?rl.map((r,ri)=>'<div class="rw"><div class="t"><span style="cursor:default">'+esc(r[0])+'</span><span class="pv">'+r[1]+'d · '+Math.round(r[1]/rt*1000)/10+'%</span></div><div class="bar"><i style="--i:'+ri+';width:'+r[1]/rt*100+'%;background:linear-gradient(90deg,#f59e0b,#f43f5e);color:#f59e0b"></i></div></div>').join(''):'<div class="empty emc">No downtime in this period</div>')+'</div></div>';
  const gc=GATES.map(g=>inc.filter(r=>r.gate===g).length),gm=Math.max(1,...gc);
- h+='<div class="card da" style="--d:10"><div class="ct"><span class="dt" style="color:#22d3ee"></span>Intoxication by gate<small>'+inc.length+' total · <a href="javascript:void(0)" onclick="go(\'intox\')" style="color:var(--ac);font-weight:700;text-decoration:none">Open incidents →</a></small></div><div class="cb">'+GATES.map((g,i)=>'<div class="rw"><div class="t"><span style="cursor:default">'+g+'</span><span class="pv">'+gc[i]+'</span></div><div class="bar"><i style="--i:'+i+';width:'+gc[i]/gm*100+'%;background:#22d3ee;color:#22d3ee"></i></div></div>').join('')+'</div></div>';
- h+='<div class="card da" style="--d:11"><div class="ct"><span class="dt" style="color:#38bdf8"></span>Sections<small>on '+dmy(d)+'</small></div><div class="cb sc sgrid" style="max-height:none">'+ES.map(s=>{const l=S.eq[s.k].filter(e=>d>=e.since);const w=l.filter(e=>stAt(s.k,e,d)==='ok').length;return'<div class="off" style="cursor:pointer;align-items:center" onclick="go(\''+s.k+'\')"><b>'+s.n+'</b><span class="r"><span style="color:#4ade80">Working '+w+'</span> · <span style="color:'+(l.length-w?'#fb7185':'#7f8ea8')+'">Down '+(l.length-w)+'</span> · Total '+l.length+'</span></div>'}).join('')+'</div></div></div></div>';
+ h+='<div class="card da" style="--d:10"><div class="ct ctg"><span class="dt" style="color:#22d3ee"></span>Intoxication by gate<small>'+inc.length+' total · <a href="javascript:void(0)" onclick="go(\'intox\')" style="color:var(--ac);font-weight:700;text-decoration:none">Open incidents →</a></small></div><div class="cb">'+GATES.map((g,i)=>'<div class="rw"><div class="t"><span style="cursor:default">'+g+'</span><span class="pv">'+gc[i]+'</span></div><div class="bar"><i style="--i:'+i+';width:'+gc[i]/gm*100+'%;background:#22d3ee;color:#22d3ee"></i></div></div>').join('')+'</div></div>';
+ h+='<div class="card da" style="--d:11"><div class="ct ctg"><span class="dt" style="color:#38bdf8"></span>Sections<small>on '+dmy(d)+'</small></div><div class="cb sc sgrid" style="max-height:none">'+ES.map(s=>{const l=S.eq[s.k].filter(e=>d>=e.since);const w=l.filter(e=>stAt(s.k,e,d)==='ok').length;return'<div class="off" style="cursor:pointer;align-items:center" onclick="go(\''+s.k+'\')"><b>'+s.n+'</b><span class="r"><span style="color:#4ade80">Working '+w+'</span> · <span style="color:'+(l.length-w?'#fb7185':'#7f8ea8')+'">Down '+(l.length-w)+'</span> · Total '+l.length+'</span></div>'}).join('')+'</div></div></div></div>';
  return h}
 
 /* ---------- settings ---------- */
@@ -482,14 +550,14 @@ function vEq(sec){
  const sc=secOf(sec),L=S.eq[sec],d=V.date,t=TODAY(),[a,b]=perR(),days=rng(START,t);
  let n=0,ok=0,dn=0,mn=0;L.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
  const sx=secStats(sec,START,t);
- let h='<h1>'+sc.n+'<span class="tb"><button class="btn pri" onclick="eqForm(\''+sec+'\')">'+ico('plus',15)+'Add Equipment</button><button class="btn" onclick="xlDaily(\''+sec+'\')">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
+ let h='<h1>'+sc.n+'<span class="tb"><button class="btn pri" onclick="eqForm(\''+sec+'\')">'+ico('plus',15)+'Add equipment</button><button class="btn" onclick="xlDaily(\''+sec+'\')">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
  const kc=(l,v,s,c)=>'<div class="card kc"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+'">'+v+'</div><div class="ks">'+s+'</div></div>';
- h+='<div class="g k5">'+kc('Total',n,'on '+dmy(d),'#fff')+kc('Working',ok,'on '+dmy(d),'#4ade80')+kc('Not Working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(sx.av),dmy(START)+' → '+dmy(t),colAv(sx.av))+'</div>';
+ h+='<div class="g k5">'+kc('Total',n,'on '+dmy(d),'#fff')+kc('Working',ok,'on '+dmy(d),'#4ade80')+kc('Not working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(sx.av),dmy(START)+' → '+dmy(t),colAv(sx.av))+'</div>';
  // list
  const hTop=h;h='';
  h+='<div class="card"><div class="ct" style="cursor:pointer;user-select:none;-webkit-user-select:none;'+(V.eqOpen?'':'margin-bottom:0')+'" onclick="eqTog()" role="button" aria-expanded="'+V.eqOpen+'"><span style="color:#38bdf8;font-size:.95rem;width:1rem;display:inline-block">'+(V.eqOpen?'▼':'▶')+'</span>Equipment list · status on '+dmy(d)+'<small>'+(V.eqOpen?'click a status to change it':'tap to show the list')+'</small></div>';
- if(!V.eqOpen){}else if(!L.length)h+='<div class="empty">No equipment yet. Use “Add Equipment” to add one.</div>';
- else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>ID / Serial</th><th>Location</th><th>Status</th><th>Reason / Remark</th><th>Availability</th><th style="text-align:right">Action</th></tr></thead><tbody id="eqtb">';
+ if(!V.eqOpen){}else if(!L.length)h+='<div class="empty">No equipment yet. Use “Add equipment” to add one.</div>';
+ else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>ID / serial</th><th>Location</th><th>Status</th><th>Reason / Remark</th><th>Availability</th><th style="text-align:right">Action</th></tr></thead><tbody id="eqtb">';
   L.forEach((e,i)=>{const s=stAt(sec,e,d),r=S.st[sK(sec,e.id,d)]||{},x=eqStats(sec,e,START,t);
    h+='<tr data-id="'+e.id+'"><td>'+(i+1)+'</td><td><b>'+esc(e.name)+'</b>'+(e.rem?'<div class="sub">'+esc(e.rem)+'</div>':'')+'</td><td class="mono">'+esc(e.code||'—')+'</td><td>'+esc(e.loc||'—')+'</td><td>'+(s==='nd'?'<span class="bdg b-nd" style="cursor:default">Not tracked</span>':'<button class="bdg b-'+s+'" onclick="stForm(\''+sec+'\',\''+e.id+'\',\''+d+'\')"><span class="dt" style="color:'+ST[s].c+'"></span>'+ST[s].n+'</button>')+'</td><td class="sub" style="font-size:.74rem">'+(r.r?esc(r.r):'')+(r.m?(r.r?' · ':'')+esc(r.m):'')+'</td><td class="pv" style="color:'+colAv(x.av)+'">'+fp(x.av)+'</td><td style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="eqForm(\''+sec+'\',\''+e.id+'\')" title="Edit">'+ico('edit',14)+'</button><button class="btn ib dh" onpointerdown="dgStart(event,\''+sec+'\',\''+e.id+'\')" title="Drag to reorder" aria-label="Drag">'+ico('grip',14)+'</button></td></tr>'});
   h+='</tbody></table></div>'}
@@ -599,7 +667,7 @@ function vEvents(){
  const f=V.evf,t=TODAY(),L=evFilt(),m=modEv();
  const kc=(l,v,s,c)=>'<div class="card kc"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+';font-size:1.5rem">'+v+'</div><div class="ks">'+s+'</div></div>';
  let h='<h1>Events<span class="tb"><button class="btn pri" onclick="evPDF()">'+ico('dl',15)+'Export PDF</button><button class="btn" onclick="evPrint()">'+ico('pr',15)+'Print</button><button class="btn" onclick="evExcel()">'+ico('dl',15)+'Export Excel</button></span></h1>';
- h+='<div class="g k6">'+kc('Total Events',m.kpis[0][1],'OFF / ON records','#fff')+kc('Not Working',m.kpis[1][1],'events','#fb3b5c')+kc('Maintenance',m.kpis[2][1],'events','#fbbf24')+kc('Ongoing',m.kpis[3][1],'still off','#38bdf8')+kc('Total Downtime',m.kpis[4][1],'selected period','#a78bfa')+kc('Equipment',m.kpis[5][1],'affected','#22d3ee')+'</div>';
+ h+='<div class="g k6">'+kc('Total events',m.kpis[0][1],'OFF / ON records','#fff')+kc('Not working',m.kpis[1][1],'events','#fb3b5c')+kc('Maintenance',m.kpis[2][1],'events','#fbbf24')+kc('Ongoing',m.kpis[3][1],'still off','#38bdf8')+kc('Total downtime',m.kpis[4][1],'selected period','#a78bfa')+kc('Equipment',m.kpis[5][1],'affected','#22d3ee')+'</div>';
  h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22d3ee"></span>Filter</div><div class="fg">'
   +'<div class="w2"><label class="f">Section</label><select class="in" onchange="evSet(\'sec\',this.value)"><option value="">All sections</option>'+ES.map(s=>'<option value="'+s.k+'" '+(f.sec===s.k?'selected':'')+'>'+s.n+'</option>').join('')+'</select></div>'
   +'<div class="w1"><label class="f">Status</label><select class="in" onchange="evSet(\'st\',this.value)"><option value="">All</option><option value="down" '+(f.st==='down'?'selected':'')+'>Not Working</option><option value="mnt" '+(f.st==='mnt'?'selected':'')+'>Maintenance</option></select></div>'
@@ -620,16 +688,16 @@ function vIntox(){
  const uniq=Object.keys(cnt).length,rep=Object.values(cnt).filter(v=>v>1).length;
  const kc=(l,v,s,c)=>'<div class="card kc"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+'">'+v+'</div><div class="ks">'+s+'</div></div>';
  let h='<h1>Intoxication Incident<span class="tb"><button class="btn" onclick="xlIntox()">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
- h+='<div class="g k4">'+kc('Total Incidents',all.length,'since '+dmy(START),'#fb3b5c')+kc('On Selected Date',all.filter(r=>r.dt.slice(0,10)===d).length,dmy(d),'#fbbf24')+kc('Persons',uniq,'unique (gate pass / name)','#22d3ee')+kc('Repeat Persons',rep,'2 or more times','#a78bfa')+'</div>';
+ h+='<div class="g k4">'+kc('Total incidents',all.length,'since '+dmy(START),'#fb3b5c')+kc('On selected date',all.filter(r=>r.dt.slice(0,10)===d).length,dmy(d),'#fbbf24')+kc('Persons',uniq,'unique (gate pass / name)','#22d3ee')+kc('Repeat persons',rep,'2 or more times','#a78bfa')+'</div>';
  h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22d3ee"></span>Search</div><div style="position:relative"><input class="in" id="iq" placeholder="Search by name or gate pass no.…" oninput="V.q=this.value;intoxList()" value="'+esc(V.q)+'" style="padding-left:2.4rem"><span style="position:absolute;left:.8rem;top:.6rem;color:#7f8ea8">'+ico('sr',16)+'</span></div></div>';
- h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#f43f5e"></span><span id="ift">New Incident Entry</span></div><div class="fg">'
+ h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#f43f5e"></span><span id="ift">New incident entry</span></div><div class="fg">'
  +'<div class="w1"><label class="f">Gate</label><select class="in" id="ig">'+GATES.map(g=>'<option>'+g+'</option>').join('')+'</select></div>'
- +'<div class="w2"><label class="f">Date &amp; Time (editable)</label><input class="in" type="datetime-local" id="idt"></div>'
+ +'<div class="w2"><label class="f">Date &amp; time (editable)</label><input class="in" type="datetime-local" id="idt"></div>'
  +'<div class="w3"><label class="f">Name</label><input class="in" id="in" placeholder="Name of the person"></div>'
- +'<div class="w4"><label class="f">Gate Pass No.</label><input class="in" id="igp" placeholder="Gate pass no."></div>'
- +'<div class="w5"><label class="f">Alcohol No.</label><input class="in" id="ial" inputmode="decimal" placeholder="Alcohol reading"></div>'
+ +'<div class="w4"><label class="f">Gate pass no.</label><input class="in" id="igp" placeholder="Gate pass no."></div>'
+ +'<div class="w5"><label class="f">Alcohol no.</label><input class="in" id="ial" inputmode="decimal" placeholder="Alcohol reading"></div>'
  +'<div class="w6"><label class="f">Action</label><select class="in" id="ia" onchange="actTog()"><option value="1">'+ACT1+'</option><option value="o">Other (type manually)</option></select><textarea class="in" id="iao" style="display:none;margin-top:8px" placeholder="Describe the action taken"></textarea></div>'
- +'</div><div class="mf" style="justify-content:flex-start"><button class="btn pri" id="isb" onclick="intoxSave()">Save Incident</button><button class="btn" id="icb" style="display:none" onclick="V.edit=null;intoxReset()">Cancel edit</button></div></div>';
+ +'</div><div class="mf" style="justify-content:flex-start"><button class="btn pri" id="isb" onclick="intoxSave()">Save incident</button><button class="btn" id="icb" style="display:none" onclick="V.edit=null;intoxReset()">Cancel edit</button><button class="btn dng" id="idb" style="display:none" onclick="intoxDel(V.edit)">'+ico('del',14)+'Delete</button></div></div>';
  h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#fb3b5c"></span><span id="ilt">Records</span></div><div id="ilist"></div></div>';
  h+='<div class="card"><div class="ct"><span class="dt" style="color:#22c55e"></span>Daily report · '+dmy(START)+' → '+dmy(t)+'<small>gate-wise incidents per day</small></div><div class="gw"><table class="dg"><thead><tr><th class="n">Gate</th>'+days.map(x=>'<th class="dh'+(x===d?' sel':'')+'">'+x.slice(8)+'<small>'+WD[pd(x).getDay()]+'</small></th>').join('')+'<th class="a">Total</th></tr></thead><tbody>'
  +GATES.map(g=>{let tt=0;const c=days.map(x=>{const n=all.filter(r=>r.gate===g&&r.dt.slice(0,10)===x).length;tt+=n;return'<td class="'+(x===d?'sel':'')+'" style="font-size:.74rem;font-weight:700;height:34px;color:'+(n?'#fb7185':'#3b4558')+'">'+(n||'·')+'</td>'}).join('');return'<tr><td class="n"><b>'+g+'</b></td>'+c+'<td class="a pv">'+tt+'</td></tr>'}).join('')
@@ -645,14 +713,14 @@ function intoxList(){
  if(q&&L.length){const m={};L.forEach(r=>{const k=(r.gp||r.name).toLowerCase();(m[k]=m[k]||[]).push(r)});
   h+='<div class="pcs">'+Object.values(m).map(a=>'<div class="pc"><b>'+esc(a[0].name)+'</b>Gate Pass: '+esc(a[0].gp||'—')+' · <b style="display:inline;color:#fb7185">'+a.length+' incident'+(a.length>1?'s':'')+'</b><br><span class="sub">Last: '+fdt(a[0].dt)+'</span></div>').join('')+'</div>'}
  if(!L.length)h+='<div class="empty">'+(q?'No record found for this name / gate pass.':'No incident records yet.')+'</div>';
- else h+='<div class="tw"><table><thead><tr><th>#</th><th>Date &amp; Time</th><th>Gate</th><th>Name</th><th>Gate Pass</th><th>Alcohol</th><th>Action Taken</th><th class="noprint" style="text-align:right">Action</th></tr></thead><tbody>'+L.map((r,i)=>'<tr><td>'+(i+1)+'</td><td class="mono" style="white-space:nowrap">'+fdt(r.dt)+'</td><td>'+esc(r.gate)+'</td><td><b>'+esc(r.name)+'</b></td><td class="mono">'+esc(r.gp)+'</td><td class="pv" style="color:#fb7185">'+esc(r.alc)+'</td><td style="min-width:200px;font-size:.76rem">'+esc(r.act)+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="intoxEdit(\''+r.id+'\')" title="Edit">'+ico('edit',14)+'</button> <button class="btn ib dng" onclick="intoxDel(\''+r.id+'\')" title="Delete">'+ico('del',14)+'</button></td></tr>').join('')+'</tbody></table></div>';
+ else h+='<div class="tw"><table><thead><tr><th>#</th><th>Date &amp; time</th><th>Gate</th><th>Name</th><th>Gate pass</th><th>Alcohol</th><th>Action taken</th><th class="noprint" style="text-align:right">Action</th></tr></thead><tbody>'+L.map((r,i)=>'<tr><td>'+(i+1)+'</td><td class="mono" style="white-space:nowrap">'+fdt(r.dt)+'</td><td>'+esc(r.gate)+'</td><td><b>'+esc(r.name)+'</b></td><td class="mono">'+esc(r.gp)+'</td><td class="pv" style="color:#fb7185">'+esc(r.alc)+'</td><td style="min-width:200px;font-size:.76rem">'+esc(r.act)+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="intoxEdit(\''+r.id+'\')" title="Edit">'+ico('edit',14)+'</button></td></tr>').join('')+'</tbody></table></div>';
  el.innerHTML=h}
 function intoxReset(){
- $('#ift').textContent='New Incident Entry';$('#ig').selectedIndex=0;$('#idt').value=nowLocal();$('#in').value='';$('#igp').value='';$('#ial').value='';$('#ia').value='1';$('#iao').value='';actTog();$('#isb').textContent='Save Incident';$('#icb').style.display='none'}
+ $('#ift').textContent='New incident entry';$('#ig').selectedIndex=0;$('#idt').value=nowLocal();$('#in').value='';$('#igp').value='';$('#ial').value='';$('#ia').value='1';$('#iao').value='';actTog();$('#isb').textContent='Save incident';$('#icb').style.display='none';$('#idb').style.display='none'}
 function intoxFill(id){
  const r=S.intox.find(x=>x.id===id);if(!r){V.edit=null;return intoxReset()}
- $('#ift').textContent='Edit Incident';$('#ig').value=r.gate;$('#idt').value=r.dt;$('#in').value=r.name;$('#igp').value=r.gp;$('#ial').value=r.alc;
- if(r.act===ACT1){$('#ia').value='1';$('#iao').value=''}else{$('#ia').value='o';$('#iao').value=r.act}actTog();$('#isb').textContent='Update Incident';$('#icb').style.display='inline-flex'}
+ $('#ift').textContent='Edit incident';$('#ig').value=r.gate;$('#idt').value=r.dt;$('#in').value=r.name;$('#igp').value=r.gp;$('#ial').value=r.alc;
+ if(r.act===ACT1){$('#ia').value='1';$('#iao').value=''}else{$('#ia').value='o';$('#iao').value=r.act}actTog();$('#isb').textContent='Update incident';$('#icb').style.display='inline-flex';$('#idb').style.display='inline-flex'}
 function intoxEdit(id){V.edit=id;intoxFill(id);$('#ift').scrollIntoView({behavior:'smooth',block:'center'})}
 function intoxSave(){
  const gate=$('#ig').value,dt=$('#idt').value,name=$('#in').value.trim(),gp=$('#igp').value.trim(),alc=$('#ial').value.trim();
