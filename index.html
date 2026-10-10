@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <script>try{var _t=localStorage.getItem("sec_theme");if(_t&&_t!=="black")document.documentElement.classList.add("th-"+_t)}catch(e){}</script>
@@ -412,7 +413,8 @@ function seed(){
 }
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!S.eq){S=seed();}
-ES.forEach(s=>{if(!S.eq[s.k])S.eq[s.k]=[]});S.st=S.st||{};S.intox=S.intox||[];S.plant=S.plant||'Security Department – Control Room';S.uname=S.uname||'Admin';
+ES.forEach(s=>{if(!S.eq[s.k])S.eq[s.k]=[]});S.st=S.st||{};S.intox=S.intox||[];function fixPlant(v){return(!v||v==='Security Department – Control Room')?'Vedanta Limited Chhattisgarh Thermal Power Plant – Security Department':v}
+S.plant=fixPlant(S.plant);S.uname=S.uname||'Admin';
 let saveErr=0;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!saveErr){saveErr=1;toast('Browser storage is blocked, so the local cache cannot be saved.',1)}}cloudPush()}
 const uid=()=>'i'+(++S.seq)+Date.now().toString(36);
@@ -654,13 +656,49 @@ const evOff=x=>dmy(x.a)+(x.ft?' '+x.ft:'');
 const evOn=x=>x.ongoing?'Ongoing':dmy(x.b)+(x.tt?' '+x.tt:'');
 function evSet(k,v){V.evf[k]=v;R.keep=1;R();R.keep=0}
 function evRows(L){return L.map((x,i)=>[i+1,x.name,x.secN,x.loc,ST[x.status].n,evOff(x),evOn(x),x.ongoing?fmtDur(x.mins)+' (running)':fmtDur(x.mins),x.reason,x.remark])}
-function modEv(){
- const L=evFilt(),f=V.evf,t=TODAY(),per=dmy(f.a||START)+' → '+dmy(f.b||t);
+function modEv(full){
+ const L=full?evAll():evFilt(),f=full?{}:V.evf,t=TODAY(),per=dmy(f.a||START)+' → '+dmy(f.b||t);
  const nd=L.filter(x=>x.status==='down').length,nm=L.filter(x=>x.status==='mnt').length,og=L.filter(x=>x.ongoing).length,tm=L.reduce((s,x)=>s+x.mins,0),ae=new Set(L.map(x=>x.sec+'|'+x.id)).size;
  const kpis=[['Total Events',L.length,'FF0F172A'],['Not Working',nd,'FFBE123C'],['Maintenance',nm,'FFB45309'],['Ongoing',og,'FF1D4ED8'],['Total Downtime',fmtDur(tm)||'0m','FF0F172A'],['Equipment Affected',ae,'FF0F172A']];
  const sub='Events Log (OFF / ON) · '+per+(f.sec?' · '+secOf(f.sec).n:'')+(f.st?' · '+ST[f.st].n:'');
  return{kpis:kpis,sheets:[{name:'Events',kpi:1,kpis:kpis,sub:sub,cols:[{h:'S.No',w:7,a:'c'},{h:'Equipment',w:24},{h:'Section',w:16},{h:'Location',w:18},{h:'Status',w:14,a:'c',st:1},{h:'OFF (From)',w:17,a:'c'},{h:'ON (To)',w:17,a:'c'},{h:'Duration',w:14,a:'c'},{h:'Reason',w:24},{h:'Remark',w:28,wr:1}],rows:evRows(L)}]}}
 function evExcel(){const m=modEv();xlsModel({file:'Events-Log-'+TODAY(),title:S.plant,kpis:m.kpis,sheets:m.sheets})}
+
+/* event edit / delete */
+function evFind(sec,id,a,b){return evAll().find(x=>x.sec===sec&&x.id===id&&x.a===a&&x.b===b)}
+function evEdit(sec,id,a,b){
+ const x=evFind(sec,id,a,b);if(!x){toast('Event not found',1);return}
+ const e=S.eq[sec].find(z=>z.id===id),t=TODAY(),ra=x.ongoing?'':x.b;
+ openM('<h3>Edit event <span class="sub">· '+esc(x.name)+' · '+esc(x.secN)+'</span></h3>'
+ +'<div class="fr"><label class="f">Status</label><div class="chips">'+['down','mnt'].map(k=>'<label><input type="radio" name="evs" value="'+k+'" '+(x.status===k?'checked':'')+'><span class="c-'+k+'">'+ST[k].n+'</span></label>').join('')+'</div></div>'
+ +'<div class="fr"><label class="f">Actual OFF start</label><div class="r2"><input class="in" type="date" id="evA" min="'+e.since+'" max="'+t+'" value="'+x.a+'"><input class="in tin mono" type="text" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="HH:MM" id="evFT" value="'+esc(x.ft||'')+'" oninput="tmMask(this,event)"></div></div>'
+ +'<div class="fr"><label class="f">End – blank keeps ongoing</label><div class="r2"><input class="in" type="date" id="evB" min="'+e.since+'" max="'+t+'" value="'+ra+'"><input class="in tin mono" type="text" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="HH:MM" id="evTT" value="'+esc(x.tt||'')+'" oninput="tmMask(this,event)"></div></div>'
+ +'<div class="fr"><label class="f">Reason</label><select class="in" id="evR">'+REASONS.concat(REASONS.indexOf(x.reason)<0&&x.reason?[x.reason]:[]).map(r=>'<option '+(x.reason===r?'selected':'')+'>'+esc(r)+'</option>').join('')+'</select></div>'
+ +'<div class="fr"><label class="f">Remarks</label><textarea class="in" id="evM" rows="3">'+esc(x.remark||'')+'</textarea></div>'
+ +'<div class="fr"><label class="f">Reason for correction *</label><input class="in" id="evC" placeholder="Why is this event being edited?"></div>'
+ +'<div class="mf"><button class="btn dng mfl" onclick="evDel(\''+sec+'\',\''+id+'\',\''+a+'\',\''+b+'\')" title="Delete event">'+ico('del',14)+'</button><button class="btn" onclick="closeM()">Cancel</button><button class="btn pri" onclick="evSave(\''+sec+'\',\''+id+'\',\''+a+'\',\''+b+'\')">Save</button></div>')}
+function evSave(sec,id,a0,b0){
+ const x=evFind(sec,id,a0,b0);if(!x){toast('Event not found',1);return}
+ const e=S.eq[sec].find(z=>z.id===id),t=TODAY();
+ const st=(document.querySelector('input[name=evs]:checked')||{}).value||x.status;
+ let a=$('#evA').value,b=$('#evB').value,ft=$('#evFT').value.trim(),tt=$('#evTT').value.trim();
+ if(!a){toast('Please select the OFF start date',1);return}
+ if(ft&&!tmOK(ft)){toast('Enter a valid OFF time (HH:MM, 24-hour)',1);return}
+ if(tt&&!tmOK(tt)){toast('Enter a valid End time (HH:MM, 24-hour)',1);return}
+ if(!b){b=t;tt=''}
+ if(a<e.since)a=e.since;if(a>t)a=t;if(b>t)b=t;
+ if(b<a){toast('End date cannot be before the OFF start date',1);return}
+ if(a===b&&ft&&tt&&tt<ft){toast('End time cannot be earlier than OFF time',1);return}
+ if(!$('#evC').value.trim()){toast('Please enter the reason for correction',1);return}
+ rng(x.a,x.b).forEach(d=>delete S.st[sK(sec,id,d)]);
+ setSt(sec,id,rng(a,b),st,$('#evR').value,$('#evM').value.trim(),ft,tt);
+ save();closeM();R.keep=1;R();R.keep=0;toast('Event updated')}
+function evDel(sec,id,a,b){
+ const x=evFind(sec,id,a,b);if(!x)return;
+ openM('<h3>Delete event?</h3><p style="font-size:.85rem;color:#cbd5e1;margin:0">'+esc(x.name)+' · '+ST[x.status].n+' · '+evOff(x)+' → '+evOn(x)+'<br>This event will be removed and the equipment will show as Working for these days. This cannot be undone.</p><div class="mf"><button class="btn" onclick="closeM()">Cancel</button><button class="btn dng" onclick="evDel2(\''+sec+'\',\''+id+'\',\''+a+'\',\''+b+'\')">Delete</button></div>')}
+function evDel2(sec,id,a,b){
+ rng(a,b).forEach(d=>delete S.st[sK(sec,id,d)]);
+ save();closeM();R.keep=1;R();R.keep=0;toast('Event deleted')}
 function evPDF(){mxPDF(modEv().sheets,'Events-Log-'+TODAY())}
 function evPrint(){mxPrint(modEv().sheets)}
 function vEvents(){
@@ -676,8 +714,8 @@ function vEvents(){
   +'<div style="align-self:end"><button class="btn" onclick="V.evf={sec:\'\',st:\'\',a:START,b:\'\'};R.keep=1;R();R.keep=0">Reset</button></div></div></div>';
  h+='<div class="card"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Events log<small>'+L.length+' record'+(L.length===1?'':'s')+' · newest first</small></div>';
  if(!L.length)h+='<div class="empty">No events found for this filter. An event appears here automatically when a status is changed to Not Working or Maintenance.</div>';
- else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Equipment</th><th>Section</th><th>Location</th><th>Status</th><th>OFF (From)</th><th>ON (To)</th><th>Duration</th><th>Reason</th><th>Remark</th></tr></thead><tbody>';
-  L.forEach((x,i)=>{h+='<tr><td>'+(i+1)+'</td><td><b>'+esc(x.name)+'</b>'+(x.code?'<div class="sub">'+esc(x.code)+'</div>':'')+'</td><td>'+esc(x.secN)+'</td><td>'+esc(x.loc||'—')+'</td><td><span class="bdg b-'+x.status+'" style="cursor:default">'+ST[x.status].n+'</span></td><td class="mono" style="white-space:nowrap">'+evOff(x)+'</td><td class="mono" style="white-space:nowrap;'+(x.ongoing?'color:#38bdf8;font-weight:700':'')+'">'+evOn(x)+'</td><td class="mono" style="white-space:nowrap;color:#fbbf24">'+fmtDur(x.mins)+(x.ongoing?' ●':'')+'</td><td>'+esc(x.reason||'—')+'</td><td>'+esc(x.remark||'—')+'</td></tr>'});
+ else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Equipment</th><th>Section</th><th>Location</th><th>Status</th><th>OFF (From)</th><th>ON (To)</th><th>Duration</th><th>Reason</th><th>Remark</th><th class="noprint"></th></tr></thead><tbody>';
+  L.forEach((x,i)=>{h+='<tr><td>'+(i+1)+'</td><td><b>'+esc(x.name)+'</b>'+(x.code?'<div class="sub">'+esc(x.code)+'</div>':'')+'</td><td>'+esc(x.secN)+'</td><td>'+esc(x.loc||'—')+'</td><td><span class="bdg b-'+x.status+'" style="cursor:default">'+ST[x.status].n+'</span></td><td class="mono" style="white-space:nowrap">'+evOff(x)+'</td><td class="mono" style="white-space:nowrap;'+(x.ongoing?'color:#38bdf8;font-weight:700':'')+'">'+evOn(x)+'</td><td class="mono" style="white-space:nowrap;color:#fbbf24">'+fmtDur(x.mins)+(x.ongoing?' ●':'')+'</td><td>'+esc(x.reason||'—')+'</td><td>'+esc(x.remark||'—')+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn" onclick="evEdit(\''+x.sec+'\',\''+x.id+'\',\''+x.a+'\',\''+x.b+'\')">Edit</button></td></tr>'});
   h+='</tbody></table></div>'}
  return h+'</div>'}
 
@@ -713,7 +751,7 @@ function intoxList(){
  if(q&&L.length){const m={};L.forEach(r=>{const k=(r.gp||r.name).toLowerCase();(m[k]=m[k]||[]).push(r)});
   h+='<div class="pcs">'+Object.values(m).map(a=>'<div class="pc"><b>'+esc(a[0].name)+'</b>Gate Pass: '+esc(a[0].gp||'—')+' · <b style="display:inline;color:#fb7185">'+a.length+' incident'+(a.length>1?'s':'')+'</b><br><span class="sub">Last: '+fdt(a[0].dt)+'</span></div>').join('')+'</div>'}
  if(!L.length)h+='<div class="empty">'+(q?'No record found for this name / gate pass.':'No incident records yet.')+'</div>';
- else h+='<div class="tw"><table><thead><tr><th>#</th><th>Date &amp; time</th><th>Gate</th><th>Name</th><th>Gate pass</th><th>Alcohol</th><th>Action taken</th><th class="noprint" style="text-align:right">Action</th></tr></thead><tbody>'+L.map((r,i)=>'<tr><td>'+(i+1)+'</td><td class="mono" style="white-space:nowrap">'+fdt(r.dt)+'</td><td>'+esc(r.gate)+'</td><td><b>'+esc(r.name)+'</b></td><td class="mono">'+esc(r.gp)+'</td><td class="pv" style="color:#fb7185">'+esc(r.alc)+'</td><td style="min-width:200px;font-size:.76rem">'+esc(r.act)+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="intoxEdit(\''+r.id+'\')" title="Edit">'+ico('edit',14)+'</button></td></tr>').join('')+'</tbody></table></div>';
+ else h+='<div class="tw"><table><thead><tr><th>#</th><th>Date &amp; time</th><th>Gate</th><th>Name</th><th>Gate pass</th><th>Alcohol</th><th>Action taken</th><th class="noprint" style="text-align:right">Action</th></tr></thead><tbody>'+L.map((r,i)=>'<tr><td>'+(i+1)+'</td><td style="white-space:nowrap">'+fdt(r.dt)+'</td><td>'+esc(r.gate)+'</td><td><b>'+esc(r.name)+'</b></td><td>'+esc(r.gp)+'</td><td style="color:#fb7185;font-weight:700">'+esc(r.alc)+'</td><td style="min-width:200px;font-size:.76rem">'+esc(r.act)+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="intoxEdit(\''+r.id+'\')" title="Edit">'+ico('edit',14)+'</button></td></tr>').join('')+'</tbody></table></div>';
  el.innerHTML=h}
 function intoxReset(){
  $('#ift').textContent='New incident entry';$('#ig').selectedIndex=0;$('#idt').value=nowLocal();$('#in').value='';$('#igp').value='';$('#ial').value='';$('#ia').value='1';$('#iao').value='';actTog();$('#isb').textContent='Save incident';$('#icb').style.display='none';$('#idb').style.display='none'}
@@ -736,6 +774,21 @@ function intoxDel2(id){S.intox=S.intox.filter(x=>x.id!==id);if(V.edit===id)V.edi
 /* ---------- export ---------- */
 function dlBlob(b,fn){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},500)}
 const xfill=a=>({type:'pattern',pattern:'solid',fgColor:{argb:a}});
+async function noGreenTriangles(buf){
+ try{
+  if(!window.JSZip)return buf;
+  const z=await JSZip.loadAsync(buf);
+  const ig='<ignoredErrors><ignoredError sqref="A1:XFD1048576" numberStoredAsText="1" formula="1" formulaRange="1" unlockedFormula="1" evalError="1" twoDigitTextYear="1" emptyCellReference="1" listDataValidation="1" calculatedColumn="1"/></ignoredErrors>';
+  const names=Object.keys(z.files).filter(n=>/^xl\/worksheets\/sheet\d+\.xml$/.test(n));
+  for(const n of names){
+   let x=await z.file(n).async('string');
+   if(x.indexOf('<ignoredErrors')>-1)continue;
+   const m=x.match(/<(drawing|legacyDrawing|tableParts|extLst)[ >\/]/);
+   const at=m?x.indexOf(m[0]):x.lastIndexOf('</worksheet>');
+   x=x.slice(0,at)+ig+x.slice(at);
+   z.file(n,x)}
+  return await z.generateAsync({type:'arraybuffer',compression:'DEFLATE'});
+ }catch(e){console.warn('triangle cleanup skipped',e);return buf}}
 async function xlsModel(M){
  if(!window.ExcelJS){toast('The Excel library could not be loaded. Please check your internet connection and try again.',1);return}
  try{
@@ -747,7 +800,7 @@ async function xlsModel(M){
    const cols=sh.cols,n=cols.length;
    const ws=wb.addWorksheet(sh.name.slice(0,31),{properties:{tabColor:{argb:BL}},pageSetup:{paperSize:9,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0,margins:{left:.4,right:.4,top:.5,bottom:.5,header:.2,footer:.2}}});
    ws.columns=cols.map(c=>({width:c.w||12}));
-   const band=(r,tx,sz,bold,bg,fc,h)=>{ws.mergeCells(r,1,r,n);const c=ws.getCell(r,1);c.value=tx;c.font={name:'Calibri',size:sz,bold:bold,color:{argb:fc}};c.fill=xfill(bg);c.alignment={vertical:'middle',horizontal:'left',indent:1};ws.getRow(r).height=h};
+   const band=(r,tx,sz,bold,bg,fc,h)=>{ws.mergeCells(r,1,r,n);const c=ws.getCell(r,1);c.value=tx;c.font={name:'Calibri',size:sz,bold:bold,color:{argb:fc}};c.fill=xfill(bg);c.alignment={vertical:'middle',horizontal:'center',wrapText:true};ws.getRow(r).height=h};
    band(1,M.title,16,true,NV,WH,30);band(2,sh.sub||M.sub,11,true,BL,WH,22);band(3,'Generated: '+gen+' by '+S.uname+' · CONFIDENTIAL – SECURITY DEPARTMENT',9,false,'FFE8EEF9','FF334155',18);
    let r=5;
    const KP=sh.kpis||M.kpis;if(sh.kpi&&KP&&n>=6){let c0=1;const base=Math.floor(n/6),ex=n%6;
@@ -755,7 +808,7 @@ async function xlsModel(M){
      for(let c=c0;c<=c1;c++){ws.getCell(r,c).border=B;ws.getCell(r+1,c).border=B}
      const a=ws.getCell(r,c0),b=ws.getCell(r+1,c0);
      a.value=k[0];a.font={size:9,color:{argb:'FF475569'},name:'Calibri'};a.fill=xfill('FFF1F5F9');a.alignment={horizontal:'center',vertical:'middle'};
-     b.value=k[1];b.font={size:15,bold:true,color:{argb:k[2]},name:'Calibri'};b.fill=xfill('FFF8FAFC');b.alignment={horizontal:'center',vertical:'middle'};c0=c1+1});
+     b.value=k[1];if(typeof k[1]==='string'&&/^-?\d+(\.\d+)?%$/.test(k[1])){b.value=parseFloat(k[1])/100;b.numFmt=/\./.test(k[1])?'0.00%':'0%'}b.font={size:15,bold:true,color:{argb:k[2]},name:'Calibri'};b.fill=xfill('FFF8FAFC');b.alignment={horizontal:'center',vertical:'middle'};c0=c1+1});
     ws.getRow(r).height=18;ws.getRow(r+1).height=28;r+=3}
    const hr=r,hw=ws.getRow(hr);
    cols.forEach((c,i)=>{const x=hw.getCell(i+1);x.value=c.h;x.font={bold:true,color:{argb:WH},size:10,name:'Calibri'};x.fill=xfill(BL);x.alignment={vertical:'middle',horizontal:'center',wrapText:true};x.border=B});hw.height=34;
@@ -768,17 +821,16 @@ async function xlsModel(M){
      else if(c.t==='ds'){x.value=v;x.fill=xfill(SF[v]||SF['-']);x.font={name:'Calibri',size:9,bold:true,color:{argb:'FF0F172A'}}}
      else if(c.t==='cnt'){if(v>0){x.value=v;x.fill=xfill('FFFECACA');x.font={name:'Calibri',size:9,bold:true,color:{argb:'FFBE123C'}}}else{x.value='';}}
      else{x.value=v==null?'':v;if(c.st){const s=String(v);x.font={name:'Calibri',size:10,bold:true,color:{argb:/^Not/.test(s)?'FFBE123C':/^Maint/.test(s)?'FFB45309':/^Working/.test(s)?'FF15803D':'FF475569'}}}}})});
-   if(sh.rows.length)ws.autoFilter={from:{row:hr,column:1},to:{row:hr,column:n}};
-   else{ws.mergeCells(hr+1,1,hr+1,n);const c=ws.getCell(hr+1,1);c.value='No records found';c.alignment={horizontal:'center'};c.font={italic:true,color:{argb:'FF64748B'}}}
+   if(!sh.rows.length){ws.mergeCells(hr+1,1,hr+1,n);const c=ws.getCell(hr+1,1);c.value='No records found';c.alignment={horizontal:'center'};c.font={italic:true,color:{argb:'FF64748B'}}}
   });
-  const buf=await wb.xlsx.writeBuffer();dlBlob(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),M.file+'.xlsx');toast('Excel exported')
+  let buf=await wb.xlsx.writeBuffer();buf=await noGreenTriangles(buf);dlBlob(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),M.file+'.xlsx');toast('Excel exported')
  }catch(err){console.error(err);toast('Excel export failed: '+err.message,1)}}
 function modEq(sec){
  const sc=secOf(sec),L=S.eq[sec],t=TODAY(),days=rng(START,t),d=V.date,tag=sc.n.replace(/\s/g,'-');
  let n=0,ok=0,dn=0,mn=0;L.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
  const sx=secStats(sec,START,t),per=dmy(START)+' → '+dmy(t);
  const kpis=[['Total Equipment',n,'FF0F172A'],['Working',ok,'FF15803D'],['Not Working',dn,'FFBE123C'],['Maintenance',mn,'FFB45309'],['Availability',fp(sx.av),'FF1D4ED8'],['Days Covered',days.length,'FF0F172A']];
- const dc=days.map(x=>({h:x.slice(8)+'-'+x.slice(5,7),w:6,t:'ds',a:'c'}));
+ const dc=days.map(x=>({h:String(parseInt(x.slice(8),10)),w:6,t:'ds',a:'c'}));
  const g=[],sm=[];
  L.forEach((e,i)=>{const x=eqStats(sec,e,START,t),s=stAt(sec,e,d),r=S.st[sK(sec,e.id,d)]||{};
   g.push([i+1,e.name,e.loc||'',e.code||'',x.ok,x.dn,x.mn,x.av].concat(days.map(dd=>{const q=stAt(sec,e,dd);return q==='ok'?'W':q==='down'?'N':q==='mnt'?'M':'-'})));
@@ -799,27 +851,27 @@ function modIntox(){
  const gr=GATES.map((g,i)=>[i+1,g].concat(days.map(d=>A.filter(r=>r.gate===g&&r.dt.slice(0,10)===d).length),[gc[i]]));
  const sheets=[
   {name:'Incident Register',kpi:1,sub:'Intoxication Incident Register · '+per,cols:[{h:'S.No',w:7,a:'c'},{h:'Date',w:12,a:'c'},{h:'Time',w:9,a:'c'},{h:'Gate',w:18},{h:'Name',w:24},{h:'Gate Pass No.',w:15,a:'c'},{h:'Alcohol No.',w:12,a:'c'},{h:'Action Taken',w:52,wr:1}],rows:rows},
-  {name:'Gate-wise Daily',sub:'Gate-wise daily incidents · '+per,cols:[{h:'S.No',w:7,a:'c'},{h:'Gate',w:20}].concat(days.map(d=>({h:d.slice(8)+'-'+d.slice(5,7),w:6,t:'cnt',a:'c'})),[{h:'Total',w:9,a:'c'}]),rows:gr}];sheets[0].kpis=kpis;return{kpis:kpis,sheets:sheets}}
+  {name:'Gate-wise Daily',sub:'Gate-wise daily incidents · '+per,cols:[{h:'S.No',w:7,a:'c'},{h:'Gate',w:20}].concat(days.map(d=>({h:String(parseInt(d.slice(8),10)),w:6,t:'cnt',a:'c'})),[{h:'Total',w:9,a:'c'}]),rows:gr}];sheets[0].kpis=kpis;return{kpis:kpis,sheets:sheets}}
 function xlIntox(){const m=modIntox();xlsModel({file:'Intoxication-Incidents-'+TODAY(),title:S.plant,kpis:m.kpis,sheets:m.sheets})}
 
 /* ---------- master export ---------- */
-const MX=['intox'].concat(ES.map(s=>s.k));
+const MX=['intox','events'].concat(ES.map(s=>s.k));
 function mxSel(){return MX.filter(k=>V.mx&&V.mx[k])}
 function mxT(k,v){V.mx[k]=v?1:0;R.keep=1;R();R.keep=0}
 function mxAll(v){MX.forEach(k=>V.mx[k]=v?1:0);R.keep=1;R();R.keep=0}
 function vMaster(){
- if(!V.mx){V.mx={};MX.forEach(k=>V.mx[k]=1)}
- const sel=mxSel(),nm=k=>k==='intox'?'Intoxication Incident':secOf(k).n;
+ if(!V.mx){V.mx={};MX.forEach(k=>V.mx[k]=1)}MX.forEach(k=>{if(V.mx[k]===undefined)V.mx[k]=1});
+ const sel=mxSel(),nm=k=>k==='intox'?'Intoxication Incident':k==='events'?'Events':secOf(k).n;
  return '<h1>Master Export</h1><div class="card" style="max-width:860px"><div class="ct"><span class="dt" style="color:#38bdf8"></span>Sections (in sidebar order)<small>'+sel.length+' / '+MX.length+' selected</small></div>'
  +'<div class="mxg">'+MX.map((k,i)=>'<label class="mxl"><input type="checkbox" '+(V.mx[k]?'checked':'')+' onchange="mxT(\''+k+'\',this.checked)"><b>'+(i+1)+'.</b>'+nm(k)+'</label>').join('')+'</div>'
  +'<div style="display:flex;gap:8px;margin:12px 0 4px"><button class="btn" onclick="mxAll(1)">Select all</button><button class="btn" onclick="mxAll(0)">Clear</button></div>'
- +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn pri" onclick="mxPDF()">'+ico('dl',15)+'Export PDF</button><button class="btn" onclick="mxPrint()">'+ico('pr',15)+'Print</button><button class="btn" onclick="mxExcel()">'+ico('dl',15)+'Export Excel</button></div>'
+ +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn pri" onclick="mxExcel()">'+ico('dl',15)+'Export Excel</button><button class="btn" onclick="mxPDF()">'+ico('dl',15)+'Export PDF</button><button class="btn" onclick="mxPrint()">'+ico('pr',15)+'Print</button></div>'
  +'<div class="sub" style="margin-top:14px;line-height:1.7">Report period: '+dmy(START)+' → '+dmy(TODAY())+' · Status on '+dmy(V.date)+'<br>Selected sections are exported together in one PDF / Print / Excel file, in sidebar order: the Summary first, then the daily report of each section (each section gets its own sheet in Excel).</div></div>'}
 function mxSheets(){
- const sel=mxSel(),eq=sel.filter(k=>k!=='intox'),t=TODAY(),d=V.date,per=dmy(START)+' → '+dmy(t),out=[];
+ const sel=mxSel(),eq=sel.filter(k=>k!=='intox'&&k!=='events'),t=TODAY(),d=V.date,per=dmy(START)+' → '+dmy(t),out=[];
  if(eq.length){let tn=0,tok=0,tdn=0,tmn=0,ao=0,at=0;const rows=eq.map((k,i)=>{let n=0,ok=0,dn=0,mn=0;S.eq[k].forEach(e=>{if(d<e.since)return;n++;const s=stAt(k,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});const sx=secStats(k,START,t);tn+=n;tok+=ok;tdn+=dn;tmn+=mn;ao+=sx.ok;at+=sx.t;return[i+1,secOf(k).n,n,ok,dn,mn,sx.av]});
   out.push({name:'Summary',kpi:1,kpis:[['Total Equipment',tn,'FF0F172A'],['Working',tok,'FF15803D'],['Not Working',tdn,'FFBE123C'],['Maintenance',tmn,'FFB45309'],['Availability',fp(at?ao/at*100:null),'FF1D4ED8'],['Sections',eq.length,'FF0F172A']],sub:'Master Summary · '+per+' · Status on '+dmy(d),cols:[{h:'S.No',w:7,a:'c'},{h:'Section',w:26},{h:'Total Equipment',w:15,a:'c'},{h:'Working',w:11,a:'c'},{h:'Not Working',w:12,a:'c'},{h:'Maintenance',w:12,a:'c'},{h:'Availability',w:13,a:'c',t:'pct'}],rows:rows})}
- sel.forEach(k=>{if(k==='intox'){const s=modIntox().sheets[0];s.name='Intoxication Incident';out.push(s)}else{const s=modEq(k).sheets[0];s.name=secOf(k).n;out.push(s)}});
+ sel.forEach(k=>{if(k==='intox'){const s=modIntox().sheets[0];s.name='Intoxication Incident';out.push(s)}else if(k==='events'){const s=modEv(true).sheets[0];s.name='Events';out.push(s)}else{const s=modEq(k).sheets[0];s.name=secOf(k).n;out.push(s)}});
  return out}
 function mxExcel(){const sh=mxSheets();if(!sh.length)return toast('Please select at least one section',1);xlsModel({file:'Master-Report-'+TODAY(),title:S.plant,sheets:sh})}
 const hexRGB=h=>[parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16),parseInt(h.slice(6,8),16)];
@@ -922,12 +974,12 @@ async function cloudPush(){
  catch(e){console.error(e);setSync('err',e);toast('Cloud save failed: '+(e.message||e).toString().slice(0,90),1);clearTimeout(retryT);retryT=setTimeout(cloudPush,15000)}
  pushing=false}
 function build(d){
- const n={eq:{},st:{},intox:[],seq:100,plant:'Security Department – Control Room',uname:'Admin'};
+ const n={eq:{},st:{},intox:[],seq:100,plant:'Vedanta Limited Chhattisgarh Thermal Power Plant – Security Department',uname:'Admin'};
  ES.forEach(s=>n.eq[s.k]=[]);
  d.eqr.forEach(r=>{if(!n.eq[r.section])return;n.eq[r.section].push({id:r.id,name:r.name,code:r.code,loc:r.location,rem:r.remarks,since:r.since})});
  d.str.forEach(r=>{const o={s:r.status,r:r.reason||'',m:r.remark||''};if(r.from_time)o.ft=r.from_time;if(r.to_time)o.tt=r.to_time;n.st[r.section+'|'+r.equipment_id+'|'+r.status_date]=o});
  d.inr.forEach(r=>n.intox.push({id:r.id,gate:r.gate,dt:r.incident_dt,name:r.name,gp:r.gate_pass,alc:r.alcohol_no,act:r.action}));
- d.cfr.forEach(r=>{if(r.key==='plant')n.plant=r.value;else if(r.key==='uname')n.uname=r.value;else if(r.key==='seq')n.seq=parseInt(r.value,10)||100});
+ d.cfr.forEach(r=>{if(r.key==='plant')n.plant=fixPlant(r.value);else if(r.key==='uname')n.uname=r.value;else if(r.key==='seq')n.seq=parseInt(r.value,10)||100});
  return n}
 async function pull(){
  const a=await Promise.all([getAll('equipment','section,id'),getAll('equipment_status','section,equipment_id,status_date'),getAll('intox_incidents','id'),getAll('app_settings','key')]);
