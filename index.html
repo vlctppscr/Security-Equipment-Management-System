@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Security Equipment Tracker – Control Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -13,7 +13,7 @@
 :root{--bg:#050507;--tx:#e8edf6;--mu:#7f8ea8;--ln:rgba(255,255,255,.085);--ac:#38bdf8;--ok:#22c55e;--dn:#f43f5e;--mt:#f59e0b;--cy:#22d3ee;--vi:#a78bfa;--pn:#0d0d12;--sk:#0c0c12;--sk2:#0b0b10;--inp:#07070b;--mbg:linear-gradient(160deg,#16161e,#0c0c12)}
 *{box-sizing:border-box}
 html,body{margin:0;background:radial-gradient(900px 520px at 92% -8%,rgba(56,189,248,.10),transparent 62%),radial-gradient(760px 460px at -6% 18%,rgba(34,197,94,.07),transparent 62%),var(--bg);background-attachment:fixed;color:var(--tx);font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,'Segoe UI',sans-serif;letter-spacing:-.006em}
-.mono,#clk,.ddp{font-family:'JetBrains Mono',ui-monospace,monospace}
+.mono,#clk,.ddp{font-family:inherit}
 button{font-family:inherit;color:inherit;cursor:pointer}
 .wrap{display:flex;min-height:100vh}
 /* sidebar */
@@ -58,6 +58,12 @@ label.f{display:block;font-size:.76rem;letter-spacing:.02em;color:var(--mu);font
 /* cards */
 .card{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--ln);border-radius:18px;padding:1rem 1.2rem;box-shadow:0 18px 40px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.05);min-width:0}
 .card:hover{border-color:rgba(255,255,255,.14)}
+.dbl{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.card.nohv:hover{border-color:var(--ln)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .card.nohv:hover{border-color:rgba(255,255,255,.075)}
+html.th-blue .card.nohv:hover{border-color:#1d3f91}
+.fchip{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;color:#bae6fd;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);border-radius:999px;padding:3px 6px 3px 12px;margin-left:auto}
+.fchip button{font:inherit;font-size:.7rem;font-weight:700;color:#fff;background:rgba(255,255,255,.12);border:0;border-radius:999px;padding:2px 10px;cursor:pointer}
 .ct{font-size:.9rem;font-weight:800;letter-spacing:.01em;display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap}
 .ct small{font-weight:500;color:var(--mu);letter-spacing:0;text-transform:none;font-size:.7rem;margin-left:auto}
 .dt{width:8px;height:8px;border-radius:50%;box-shadow:0 0 10px currentColor;background:currentColor;display:inline-block;flex:none}
@@ -78,7 +84,7 @@ label.f{display:block;font-size:.76rem;letter-spacing:.02em;color:var(--mu);font
 .sc{max-height:240px;overflow:auto}
 .sc::-webkit-scrollbar,.gw::-webkit-scrollbar,.tw::-webkit-scrollbar{width:6px;height:8px}.sc::-webkit-scrollbar-thumb,.gw::-webkit-scrollbar-thumb,.tw::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:9px}
 .off{padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;gap:10px;font-size:.78rem}
-.off b{font-weight:700}.off .r{text-align:right;font-size:.7rem;color:#9aa8c0}.off .r em{color:#fb7185;font-style:normal;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.78rem;display:block}
+.off b{font-weight:700}.off .r{text-align:right;font-size:.7rem;color:#9aa8c0}.off .r em{color:#fb7185;font-style:normal;font-weight:700;font-family:inherit;font-size:.78rem;display:block}
 .lg{display:flex;align-items:center;gap:.5rem;font-size:.74rem;margin:.22rem 0}
 /* tables */
 .tw{overflow:auto}
@@ -88,7 +94,7 @@ td{padding:.55rem .7rem;font-size:.8rem;border-bottom:1px solid rgba(255,255,255
 tbody tr:hover>td{background:rgba(56,189,248,.06)}
 .bdg{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;border:1px solid;cursor:pointer;background:transparent}
 .b-ok{color:#4ade80;border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.1)}.b-down{color:#fb7185;border-color:rgba(244,63,94,.5);background:rgba(244,63,94,.1)}.b-mnt{color:#fbbf24;border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.1)}.b-nd{color:#94a3b8;border-color:#475569}
-.pv{font-family:'JetBrains Mono',monospace;font-weight:700}
+.pv{font-family:inherit;font-weight:700}
 /* daily grid */
 .gw{overflow:auto;max-height:72vh;border-radius:12px;border:1px solid var(--ln)}
 table.dg{width:auto;min-width:100%;border-collapse:separate;border-spacing:0}
@@ -152,7 +158,7 @@ body.sbh #sb{display:none}
 .mpg tbody tr:nth-child(even) td{background:#f1f5f9}
 .mpg td.cc{text-align:center;padding:2px 1px;font-weight:700;font-size:6.5pt}
 .mxl{display:flex;align-items:center;gap:10px;padding:.55rem .8rem;border:1px solid var(--ln);border-radius:12px;font-size:.84rem;font-weight:600;cursor:pointer;background:rgba(255,255,255,.03)}
-.mxl input{width:17px;height:17px;accent-color:#22c55e;flex:none}.mxl b{color:var(--mu);font-family:'JetBrains Mono',monospace;font-size:.74rem;min-width:1.4rem}
+.mxl input{width:17px;height:17px;accent-color:#22c55e;flex:none}.mxl b{color:var(--mu);font-family:inherit;font-size:.74rem;min-width:1.4rem}
 .mxg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 @media print{html.mp-on,html.mp-on body{background:#fff!important}html.mp-on .wrap,html.mp-on #md,html.mp-on #toast{display:none!important}html.mp-on #mp{display:block}}
 
@@ -275,7 +281,7 @@ html.th-blue{--sbt:#050d1f;--sbh:#1d3f91;--sbh2:#2f5fd0}
 ::-webkit-scrollbar-thumb:hover{background:var(--sbh2);border:2px solid var(--sbt);background-clip:border-box}
 html,body{font-family:ui-sans-serif,system-ui,'Segoe UI',sans-serif;font-weight:500;letter-spacing:0;-webkit-font-smoothing:auto;text-rendering:optimizeLegibility}
 svg text{font-family:ui-sans-serif,system-ui,'Segoe UI',sans-serif;font-weight:600}
-.mono,#clk,.ddp,.pv,.off .r em{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace}
+.mono,#clk,.ddp,.pv,.off .r em,.tin{font-family:inherit}
 h1{font-size:1.125rem;font-weight:700;letter-spacing:.025em;text-transform:uppercase}
 .dfit>h1{font-size:1.125rem}
 .ct{font-size:.88rem;font-weight:700;color:#e6ecf7;letter-spacing:.01em}
@@ -436,7 +442,7 @@ const PN={all:'All time','1m':'1 Month','1w':'1 Week','1d':'1 Day'};
 
 /* ---------- shell ---------- */
 function nav(){$('#nav').innerHTML=SECS.map(s=>'<button class="'+(s.k===V.sec?'on':'')+'" onclick="go(\''+s.k+'\')">'+ico(s.k==='dash'?'dash':s.k)+s.n+'</button>'+(s.k==='ev'||s.k==='app'?'<i class="sp"></i>':'')).join('')}
-function go(k){if(k==='dash'&&V.sec!=='dash')V.dxA=1;V.sec=k;V.q='';V.edit=null;history.replaceState(null,'','#'+k);if(innerWidth<1024)sbT(0);R();window.scrollTo(0,0)}
+function go(k){if(k==='dash'&&V.sec!=='dash')V.dxA=1;V.eqF=null;V.ig=null;V.sec=k;V.q='';V.edit=null;history.replaceState(null,'','#'+k);if(innerWidth<1024)sbT(0);R();window.scrollTo(0,0)}
 function sbT(f){const w=innerWidth<1024;if(w){document.body.classList.toggle('so',f===undefined?!document.body.classList.contains('so'):!!f)}else{document.body.classList.toggle('sbh',f===undefined?!document.body.classList.contains('sbh'):!f)}}
 function dnav(n){const t=TODAY();let d=addD(V.date,n);if(d<START)d=START;if(d>t)d=t;V.date=d;R()}
 function dset(v){if(!v)return;const t=TODAY();if(v<START)v=START;if(v>t)v=t;V.date=v;R()}
@@ -445,6 +451,9 @@ function toast(m,err){const t=$('#toast');t.textContent=m;t.className=err?'err':
 function openM(h){$('#mbx').innerHTML=h;$('#md').classList.add('open')}
 function closeM(){$('#md').classList.remove('open')}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+function eqOne(sec,id){go(sec);V.eqF=id;R();window.scrollTo(0,0)}
+function evReason(i){const r=V.rl&&V.rl[i];if(r==null)return;const a=V.rA,b=V.rB;go('ev');V.evf={sec:'',st:'',a:a||START,b:(!b||b===TODAY())?'':b,rs:r};R();window.scrollTo(0,0)}
+function intoxGate(i){const g=GATES[i];if(!g)return;go('intox');V.ig=g;R();window.scrollTo(0,0)}
 function R(){
  const t=TODAY();if(V.date>t)V.date=t;
  nav();$('#un').textContent=S.uname;$('#nx').disabled=V.date>=t;$('#hl').innerHTML=[['ev','Events'],['dash','Dashboard'],['mx','Master Export']].map(x=>'<a class="hl'+(V.sec===x[0]?' on':'')+'" onclick="go(\''+x[0]+'\')">'+x[1]+'</a>').join('<span class="hsep">|</span>');$('#dd').textContent=dmy(V.date);const dp=$('#dpk');dp.min=START;dp.max=t;dp.value=V.date;
@@ -508,8 +517,8 @@ function vDash(){
  let ol='';
  if(!off.length)ol='<div class="empty emc">All equipment is working ✔</div>';
  else ol=off.map(o=>{const r=S.st[sK(o.x.sec,o.x.e.id,d)]||{},n=streak(o.x.sec,o.x.e,d);
-  return'<div class="off"><div><b>'+esc(secOf(o.x.sec).n)+' · '+esc(o.x.e.name)+'</b><div class="sub">'+esc(o.x.e.loc||'—')+(o.x.e.code?' · '+esc(o.x.e.code):'')+'</div></div><div class="r"><em>'+n+' day'+(n>1?'s':'')+'</em>'+ST[o.s].n+(r.r?' · '+esc(r.r):'')+'</div></div>'}).join('');
- h+='<div class="g c2 fr2"><div class="card da" style="--d:4"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Currently not working<small>'+off.length+'</small></div><div class="cb sc">'+ol+'</div></div>';
+  return'<div class="off dbl" ondblclick="eqOne(\''+o.x.sec+'\',\''+o.x.e.id+'\')" title="Double-click: open full date row"><div><b>'+esc(secOf(o.x.sec).n)+' · '+esc(o.x.e.name)+'</b><div class="sub">'+esc(o.x.e.loc||'—')+(o.x.e.code?' · '+esc(o.x.e.code):'')+'</div></div><div class="r"><em>'+n+' day'+(n>1?'s':'')+'</em>'+ST[o.s].n+(r.r?' · '+esc(r.r):'')+'</div></div>'}).join('');
+ h+='<div class="g c2 fr2"><div class="card da nohv" style="--d:4"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Currently not working<small>'+off.length+'</small></div><div class="cb sc">'+ol+'</div></div>';
  h+='<div class="card da" style="--d:5"><div class="ct"><span class="dt" style="color:#22c55e"></span>Section availability<small>'+(V.per==='1d'?dmy(d):dmy(a)+' → '+dmy(b))+'</small></div><div class="cb" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px 22px;align-content:start">';
  ES.forEach(s=>{const x=secStats(s.k,a,b);h+='<div class="rw"><div class="t"><span onclick="go(\''+s.k+'\')">'+s.n+'</span><span class="pv" style="color:'+colAv(x.av)+'">'+fp(x.av)+'</span></div><div class="bar"><i style="--i:'+(bi++)+';width:'+(x.av||0)+'%;background:'+colAv(x.av)+';color:'+colAv(x.av)+'"></i></div></div>'});
  h+='</div></div></div>';
@@ -523,10 +532,10 @@ function vDash(){
  h+='<div class="card da" style="--d:8"><div class="ct"><span class="dt" style="color:#a78bfa"></span>Equipment types</div><div class="cb" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="dn" style="height:100%;display:flex;align-items:center">'+donut(parts,all.length,'EQUIPMENT')+'</div><div class="tgrid" style="flex:1;min-width:110px">'+parts.map(p=>'<div class="lg"><span class="dt" style="color:'+p.c+'"></span>'+p.n+' <b style="margin-left:auto">'+p.v+'</b></div>').join('')+'</div></div></div></div>';
  // reasons / intox gates / sections
  const rs={};let rt=0;all.forEach(x=>rng(a,b).forEach(dd=>{if(dd<x.e.since)return;const r=S.st[sK(x.sec,x.e.id,dd)];if(r&&r.s!=='ok'){const k=r.r||'Unspecified';rs[k]=(rs[k]||0)+1;rt++}}));
- const rl=Object.entries(rs).sort((p,q)=>q[1]-p[1]);
- h+='<div class="g c3b fr4"><div class="card da" style="--d:9"><div class="ct"><span class="dt" style="color:#f59e0b"></span>Downtime by reason<small>'+rt+' equipment-days</small></div><div class="cb sc" style="max-height:none">'+(rl.length?rl.map((r,ri)=>'<div class="rw"><div class="t"><span style="cursor:default">'+esc(r[0])+'</span><span class="pv">'+r[1]+'d · '+Math.round(r[1]/rt*1000)/10+'%</span></div><div class="bar"><i style="--i:'+ri+';width:'+r[1]/rt*100+'%;background:linear-gradient(90deg,#f59e0b,#f43f5e);color:#f59e0b"></i></div></div>').join(''):'<div class="empty emc">No downtime in this period</div>')+'</div></div>';
+ const rl=Object.entries(rs).sort((p,q)=>q[1]-p[1]);V.rl=rl.map(r=>r[0]==='Unspecified'?'Unspecified':r[0]);V.rA=a;V.rB=b;
+ h+='<div class="g c3b fr4"><div class="card da" style="--d:9"><div class="ct ctg"><span class="dt" style="color:#f59e0b"></span>Downtime by reason<small>'+rt+' equipment-days</small></div><div class="cb sc" style="max-height:none">'+(rl.length?rl.map((r,ri)=>'<div class="rw dbl" ondblclick="evReason('+ri+')" title="Double-click: show all events for this reason"><div class="t"><span style="cursor:pointer">'+esc(r[0])+'</span><span class="pv">'+r[1]+'d · '+Math.round(r[1]/rt*1000)/10+'%</span></div><div class="bar"><i style="--i:'+ri+';width:'+r[1]/rt*100+'%;background:linear-gradient(90deg,#f59e0b,#f43f5e);color:#f59e0b"></i></div></div>').join(''):'<div class="empty emc">No downtime in this period</div>')+'</div></div>';
  const gc=GATES.map(g=>inc.filter(r=>r.gate===g).length),gm=Math.max(1,...gc);
- h+='<div class="card da" style="--d:10"><div class="ct ctg"><span class="dt" style="color:#22d3ee"></span>Intoxication by gate<small>'+inc.length+' total · <a href="javascript:void(0)" onclick="go(\'intox\')" style="color:var(--ac);font-weight:700;text-decoration:none">Open incidents →</a></small></div><div class="cb">'+GATES.map((g,i)=>'<div class="rw"><div class="t"><span style="cursor:default">'+g+'</span><span class="pv">'+gc[i]+'</span></div><div class="bar"><i style="--i:'+i+';width:'+gc[i]/gm*100+'%;background:#22d3ee;color:#22d3ee"></i></div></div>').join('')+'</div></div>';
+ h+='<div class="card da" style="--d:10"><div class="ct ctg"><span class="dt" style="color:#22d3ee"></span>Intoxication by gate<small>'+inc.length+' total · <a href="javascript:void(0)" onclick="go(\'intox\')" style="color:var(--ac);font-weight:700;text-decoration:none">Open incidents →</a></small></div><div class="cb">'+GATES.map((g,i)=>'<div class="rw dbl" ondblclick="intoxGate('+i+')" title="Double-click: show all incidents of this gate"><div class="t"><span style="cursor:pointer">'+g+'</span><span class="pv">'+gc[i]+'</span></div><div class="bar"><i style="--i:'+i+';width:'+gc[i]/gm*100+'%;background:#22d3ee;color:#22d3ee"></i></div></div>').join('')+'</div></div>';
  h+='<div class="card da" style="--d:11"><div class="ct ctg"><span class="dt" style="color:#38bdf8"></span>Sections<small>on '+dmy(d)+'</small></div><div class="cb sc sgrid" style="max-height:none">'+ES.map(s=>{const l=S.eq[s.k].filter(e=>d>=e.since);const w=l.filter(e=>stAt(s.k,e,d)==='ok').length;return'<div class="off" style="cursor:pointer;align-items:center" onclick="go(\''+s.k+'\')"><b>'+s.n+'</b><span class="r"><span style="color:#4ade80">Working '+w+'</span> · <span style="color:'+(l.length-w?'#fb7185':'#7f8ea8')+'">Down '+(l.length-w)+'</span> · Total '+l.length+'</span></div>'}).join('')+'</div></div></div></div>';
  return h}
 
@@ -549,13 +558,16 @@ function vSet(){
 
 /* ---------- equipment section ---------- */
 function vEq(sec){
- const sc=secOf(sec),L=S.eq[sec],d=V.date,t=TODAY(),[a,b]=perR(),days=rng(START,t);
- let n=0,ok=0,dn=0,mn=0;L.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
+ const sc=secOf(sec),LA=S.eq[sec],d=V.date,t=TODAY(),[a,b]=perR(),days=rng(START,t);
+ if(V.eqF&&!LA.some(e=>e.id===V.eqF))V.eqF=null;
+ const L=V.eqF?LA.filter(e=>e.id===V.eqF):LA;
+ let n=0,ok=0,dn=0,mn=0;LA.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
  const sx=secStats(sec,START,t);
  let h='<h1>'+sc.n+'<span class="tb"><button class="btn pri" onclick="eqForm(\''+sec+'\')">'+ico('plus',15)+'Add equipment</button><button class="btn" onclick="xlDaily(\''+sec+'\')">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
  const kc=(l,v,s,c)=>'<div class="card kc"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+'">'+v+'</div><div class="ks">'+s+'</div></div>';
  h+='<div class="g k5">'+kc('Total',n,'on '+dmy(d),'#fff')+kc('Working',ok,'on '+dmy(d),'#4ade80')+kc('Not working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(sx.av),dmy(START)+' → '+dmy(t),colAv(sx.av))+'</div>';
  // list
+ if(V.eqF&&L[0])h+='<div class="card" style="margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b>Showing only: '+esc(L[0].name)+'</b><span class="sub">'+esc(L[0].loc||'')+(L[0].code?' · '+esc(L[0].code):'')+'</span><span class="fchip">All dates<button onclick="V.eqF=null;R.keep=1;R();R.keep=0">Show all equipment</button></span></div>';
  const hTop=h;h='';
  h+='<div class="card"><div class="ct" style="cursor:pointer;user-select:none;-webkit-user-select:none;'+(V.eqOpen?'':'margin-bottom:0')+'" onclick="eqTog()" role="button" aria-expanded="'+V.eqOpen+'"><span style="color:#38bdf8;font-size:.95rem;width:1rem;display:inline-block">'+(V.eqOpen?'▼':'▶')+'</span>Equipment list · status on '+dmy(d)+'<small>'+(V.eqOpen?'click a status to change it':'tap to show the list')+'</small></div>';
  if(!V.eqOpen){}else if(!L.length)h+='<div class="empty">No equipment yet. Use “Add equipment” to add one.</div>';
@@ -651,7 +663,7 @@ function evAll(){
   L.forEach(x=>{if(run){const lp=run[run.length-1];if(addD(lp.d,1)===x.d&&lp.r.s===x.r.s&&(lp.r.r||'')===(x.r.r||'')){run.push(x);return}flush()}run=[x]});flush()});
  out.sort((p,q)=>(q.a+(q.ft||'00:00')).localeCompare(p.a+(p.ft||'00:00'))||p.name.localeCompare(q.name));
  return out}
-function evFilt(){const f=V.evf,t=TODAY(),fa=f.a||START,fb=f.b||t;return evAll().filter(x=>(!f.sec||x.sec===f.sec)&&(!f.st||x.status===f.st)&&x.a<=fb&&x.b>=fa)}
+function evFilt(){const f=V.evf,t=TODAY(),fa=f.a||START,fb=f.b||t;return evAll().filter(x=>(!f.sec||x.sec===f.sec)&&(!f.st||x.status===f.st)&&(!f.rs||(x.reason||'Unspecified')===f.rs)&&x.a<=fb&&x.b>=fa)}
 const evOff=x=>dmy(x.a)+(x.ft?' '+x.ft:'');
 const evOn=x=>x.ongoing?'Ongoing':dmy(x.b)+(x.tt?' '+x.tt:'');
 function evSet(k,v){V.evf[k]=v;R.keep=1;R();R.keep=0}
@@ -709,9 +721,10 @@ function vEvents(){
  h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22d3ee"></span>Filter</div><div class="fg">'
   +'<div class="w2"><label class="f">Section</label><select class="in" onchange="evSet(\'sec\',this.value)"><option value="">All sections</option>'+ES.map(s=>'<option value="'+s.k+'" '+(f.sec===s.k?'selected':'')+'>'+s.n+'</option>').join('')+'</select></div>'
   +'<div class="w1"><label class="f">Status</label><select class="in" onchange="evSet(\'st\',this.value)"><option value="">All</option><option value="down" '+(f.st==='down'?'selected':'')+'>Not Working</option><option value="mnt" '+(f.st==='mnt'?'selected':'')+'>Maintenance</option></select></div>'
+  +'<div class="w2"><label class="f">Reason</label><select class="in" onchange="evSet(\'rs\',this.value)"><option value="">All reasons</option>'+REASONS.concat(['Unspecified']).map(x=>'<option '+(f.rs===x?'selected':'')+'>'+x+'</option>').join('')+'</select></div>'
   +'<div class="w1"><label class="f">From date</label><input class="in" type="date" min="'+START+'" max="'+t+'" value="'+(f.a||START)+'" onchange="evSet(\'a\',this.value||START)"></div>'
   +'<div class="w1"><label class="f">To date</label><input class="in" type="date" min="'+START+'" max="'+t+'" value="'+(f.b||t)+'" onchange="evSet(\'b\',this.value===TODAY()?\'\':this.value)"></div>'
-  +'<div style="align-self:end"><button class="btn" onclick="V.evf={sec:\'\',st:\'\',a:START,b:\'\'};R.keep=1;R();R.keep=0">Reset</button></div></div></div>';
+  +'<div style="align-self:end"><button class="btn" onclick="V.evf={sec:\'\',st:\'\',rs:\'\',a:START,b:\'\'};R.keep=1;R();R.keep=0">Reset</button></div></div></div>';
  h+='<div class="card"><div class="ct"><span class="dt" style="color:#f43f5e"></span>Events log<small>'+L.length+' record'+(L.length===1?'':'s')+' · newest first</small></div>';
  if(!L.length)h+='<div class="empty">No events found for this filter. An event appears here automatically when a status is changed to Not Working or Maintenance.</div>';
  else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Equipment</th><th>Section</th><th>Location</th><th>Status</th><th>OFF (From)</th><th>ON (To)</th><th>Duration</th><th>Reason</th><th>Remark</th><th class="noprint"></th></tr></thead><tbody>';
@@ -736,7 +749,7 @@ function vIntox(){
  +'<div class="w5"><label class="f">Alcohol no.</label><input class="in" id="ial" inputmode="decimal" placeholder="Alcohol reading"></div>'
  +'<div class="w6"><label class="f">Action</label><select class="in" id="ia" onchange="actTog()"><option value="1">'+ACT1+'</option><option value="o">Other (type manually)</option></select><textarea class="in" id="iao" style="display:none;margin-top:8px" placeholder="Describe the action taken"></textarea></div>'
  +'</div><div class="mf" style="justify-content:flex-start"><button class="btn pri" id="isb" onclick="intoxSave()">Save incident</button><button class="btn" id="icb" style="display:none" onclick="V.edit=null;intoxReset()">Cancel edit</button><button class="btn dng" id="idb" style="display:none" onclick="intoxDel(V.edit)">'+ico('del',14)+'Delete</button></div></div>';
- h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#fb3b5c"></span><span id="ilt">Records</span></div><div id="ilist"></div></div>';
+ h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#fb3b5c"></span><span id="ilt">Records</span><span id="igf"></span></div><div id="ilist"></div></div>';
  h+='<div class="card"><div class="ct"><span class="dt" style="color:#22c55e"></span>Daily report · '+dmy(START)+' → '+dmy(t)+'<small>gate-wise incidents per day</small></div><div class="gw"><table class="dg"><thead><tr><th class="n">Gate</th>'+days.map(x=>'<th class="dh'+(x===d?' sel':'')+'">'+x.slice(8)+'<small>'+WD[pd(x).getDay()]+'</small></th>').join('')+'<th class="a">Total</th></tr></thead><tbody>'
  +GATES.map(g=>{let tt=0;const c=days.map(x=>{const n=all.filter(r=>r.gate===g&&r.dt.slice(0,10)===x).length;tt+=n;return'<td class="'+(x===d?'sel':'')+'" style="font-size:.74rem;font-weight:700;height:34px;color:'+(n?'#fb7185':'#3b4558')+'">'+(n||'·')+'</td>'}).join('');return'<tr><td class="n"><b>'+g+'</b></td>'+c+'<td class="a pv">'+tt+'</td></tr>'}).join('')
  +'</tbody><tfoot><tr><td class="n">Total</td>'+days.map(x=>{const n=all.filter(r=>r.dt.slice(0,10)===x).length;return'<td style="color:'+(n?'#fb7185':'#4b5568')+'">'+n+'</td>'}).join('')+'<td class="pv">'+all.length+'</td></tr></tfoot></table></div></div>';
@@ -745,6 +758,8 @@ function actTog(){const o=$('#ia').value==='o';$('#iao').style.display=o?'block'
 function intoxList(){
  const el=$('#ilist');if(!el)return;const q=(V.q||'').trim().toLowerCase();
  let L=S.intox.slice().sort((x,y)=>y.dt.localeCompare(x.dt));
+ if(V.ig)L=L.filter(r=>r.gate===V.ig);
+ const gf=$('#igf');if(gf)gf.innerHTML=V.ig?'<span class="fchip">Gate: '+esc(V.ig)+'<button onclick="V.ig=null;intoxList()">Show all</button></span>':'';
  if(q)L=L.filter(r=>r.name.toLowerCase().includes(q)||(r.gp||'').toLowerCase().includes(q));
  $('#ilt').textContent=q?'Search result · '+L.length+' record'+(L.length!==1?'s':''):'Records · '+L.length;
  let h='';
