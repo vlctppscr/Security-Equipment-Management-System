@@ -135,6 +135,13 @@ tr.dg-src>td{opacity:.35}tr.dr-b>td{box-shadow:inset 0 2px 0 var(--ac)}tr.dr-a>t
 .pcs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.8rem}
 .pc{padding:.5rem .8rem;border-radius:12px;border:1px solid rgba(244,63,94,.4);background:rgba(244,63,94,.07);font-size:.76rem}.pc b{display:block;font-size:.84rem}
 .fg{display:flex;flex-wrap:wrap;gap:12px 14px}.fg>div{max-width:100%}.w1{width:190px}.w2{width:235px}.w3{width:250px}.w4{width:170px}.w5{width:150px}.w6{width:480px}
+.ifl .fg{flex-wrap:nowrap;align-items:flex-end;gap:10px}
+.ifl .fg>div{min-width:0}
+.ifl .w1{width:150px;flex:none}.ifl .wd{width:128px;flex:none}.ifl .wt{width:74px;flex:none}
+.ifl .w3{width:auto;flex:1 1 150px}.ifl .w4{width:125px;flex:none}.ifl .w5{width:70px;flex:none}
+.ifl .w6{width:auto;flex:2 1 230px}.ifl .wb{flex:none;display:flex;gap:8px;white-space:nowrap}
+.ifl .in{padding-left:.55rem;padding-right:.4rem}.ifl .wd .in{padding-right:.2rem}
+@media(max-width:1250px){.ifl .fg{flex-wrap:wrap}.ifl .w3{flex:1 1 200px}.ifl .w6{flex:1 1 300px}}.wd{width:170px}.wt{width:110px}
 svg text{font-family:'Plus Jakarta Sans',sans-serif}
 @media(max-width:1180px){.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.c2,.c3,.c3b{grid-template-columns:1fr}}
 @media(max-width:1023px){
@@ -741,19 +748,23 @@ function vIntox(){
  let h='<h1>Intoxication Incident<span class="tb"><button class="btn" onclick="xlIntox()">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
  h+='<div class="g k4">'+kc('Total incidents',all.length,'since '+dmy(START),'#fb3b5c')+kc('On selected date',all.filter(r=>r.dt.slice(0,10)===d).length,dmy(d),'#fbbf24')+kc('Persons',uniq,'unique (gate pass / name)','#22d3ee')+kc('Repeat persons',rep,'2 or more times','#a78bfa')+'</div>';
  h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22d3ee"></span>Search</div><div style="position:relative"><input class="in" id="iq" placeholder="Search by name or gate pass no.…" oninput="V.q=this.value;intoxList()" value="'+esc(V.q)+'" style="padding-left:2.4rem"><span style="position:absolute;left:.8rem;top:.6rem;color:#7f8ea8">'+ico('sr',16)+'</span></div></div>';
- h+='<div class="card noprint" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#f43f5e"></span><span id="ift">New incident entry</span></div><div class="fg">'
+ h+='<div class="card noprint ifl" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#f43f5e"></span><span id="ift">New incident entry</span></div><div class="fg">'
  +'<div class="w1"><label class="f">Gate</label><select class="in" id="ig">'+GATES.map(g=>'<option>'+g+'</option>').join('')+'</select></div>'
- +'<div class="w2"><label class="f">Date &amp; time (editable)</label><input class="in" type="datetime-local" id="idt"></div>'
+ +'<div class="wd"><label class="f">Date</label><input class="in" type="date" id="idd"></div>'
+ +'<div class="wt"><label class="f">Time (24h)</label><input class="in" type="text" id="itm" inputmode="numeric" maxlength="5" placeholder="HH:MM" autocomplete="off" oninput="tmAuto(this,event)" onblur="tmFix(this)"></div>'
  +'<div class="w3"><label class="f">Name</label><input class="in" id="in" placeholder="Name of the person"></div>'
  +'<div class="w4"><label class="f">Gate pass no.</label><input class="in" id="igp" placeholder="Gate pass no."></div>'
- +'<div class="w5"><label class="f">Alcohol no.</label><input class="in" id="ial" inputmode="decimal" placeholder="Alcohol reading"></div>'
+ +'<div class="w5"><label class="f">Alcohol no.</label><input class="in" id="ial" inputmode="numeric" maxlength="3" placeholder="000" autocomplete="off" oninput="this.value=this.value.replace(/\D/g,\'\').slice(0,3)"></div>'
  +'<div class="w6"><label class="f">Action</label><select class="in" id="ia" onchange="actTog()"><option value="1">'+ACT1+'</option><option value="o">Other (type manually)</option></select><textarea class="in" id="iao" style="display:none;margin-top:8px" placeholder="Describe the action taken"></textarea></div>'
- +'</div><div class="mf" style="justify-content:flex-start"><button class="btn pri" id="isb" onclick="intoxSave()">Save incident</button><button class="btn" id="icb" style="display:none" onclick="V.edit=null;intoxReset()">Cancel edit</button><button class="btn dng" id="idb" style="display:none" onclick="intoxDel(V.edit)">'+ico('del',14)+'Delete</button></div></div>';
+ +'<div class="wb"><button class="btn pri" id="isb" onclick="intoxSave()">Save incident</button><button class="btn" id="icb" style="display:none" onclick="V.edit=null;intoxReset()">Cancel edit</button><button class="btn dng" id="idb" style="display:none" onclick="intoxDel(V.edit)">'+ico('del',14)+'Delete</button></div></div></div>';
  h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#fb3b5c"></span><span id="ilt">Records</span><span id="igf"></span></div><div id="ilist"></div></div>';
  h+='<div class="card"><div class="ct"><span class="dt" style="color:#22c55e"></span>Daily report · '+dmy(START)+' → '+dmy(t)+'<small>gate-wise incidents per day</small></div><div class="gw"><table class="dg"><thead><tr><th class="n">Gate</th>'+days.map(x=>'<th class="dh'+(x===d?' sel':'')+'">'+x.slice(8)+'<small>'+WD[pd(x).getDay()]+'</small></th>').join('')+'<th class="a">Total</th></tr></thead><tbody>'
  +GATES.map(g=>{let tt=0;const c=days.map(x=>{const n=all.filter(r=>r.gate===g&&r.dt.slice(0,10)===x).length;tt+=n;return'<td class="'+(x===d?'sel':'')+'" style="font-size:.74rem;font-weight:700;height:34px;color:'+(n?'#fb7185':'#3b4558')+'">'+(n||'·')+'</td>'}).join('');return'<tr><td class="n"><b>'+g+'</b></td>'+c+'<td class="a pv">'+tt+'</td></tr>'}).join('')
  +'</tbody><tfoot><tr><td class="n">Total</td>'+days.map(x=>{const n=all.filter(r=>r.dt.slice(0,10)===x).length;return'<td style="color:'+(n?'#fb7185':'#4b5568')+'">'+n+'</td>'}).join('')+'<td class="pv">'+all.length+'</td></tr></tfoot></table></div></div>';
  return h}
+function setDT(v){const a=(v||'').split('T');$('#idd').value=a[0]||'';$('#itm').value=(a[1]||'').slice(0,5)}
+function tmAuto(el,e){let d=el.value.replace(/\D/g,'').slice(0,4),del=e&&e.inputType&&e.inputType.indexOf('delete')===0;el.value=d.length>2?d.slice(0,2)+':'+d.slice(2):(d.length===2&&!del?d+':':d)}
+function tmFix(el){const d=el.value.replace(/\D/g,'');if(!d)return;let h,m;if(d.length<=2){h=d;m='00'}else if(d.length===3){h='0'+d[0];m=d.slice(1)}else{h=d.slice(0,2);m=d.slice(2)}el.value=h.padStart(2,'0')+':'+m.padStart(2,'0')}
 function actTog(){const o=$('#ia').value==='o';$('#iao').style.display=o?'block':'none';if(o)$('#iao').focus()}
 function intoxList(){
  const el=$('#ilist');if(!el)return;const q=(V.q||'').trim().toLowerCase();
@@ -769,16 +780,16 @@ function intoxList(){
  else h+='<div class="tw"><table><thead><tr><th>#</th><th>Date &amp; time</th><th>Gate</th><th>Name</th><th>Gate pass</th><th>Alcohol</th><th>Action taken</th><th class="noprint" style="text-align:right">Action</th></tr></thead><tbody>'+L.map((r,i)=>'<tr><td>'+(i+1)+'</td><td style="white-space:nowrap">'+fdt(r.dt)+'</td><td>'+esc(r.gate)+'</td><td><b>'+esc(r.name)+'</b></td><td>'+esc(r.gp)+'</td><td style="color:#fb7185;font-weight:700">'+esc(r.alc)+'</td><td style="min-width:200px;font-size:.76rem">'+esc(r.act)+'</td><td class="noprint" style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="intoxEdit(\''+r.id+'\')" title="Edit">'+ico('edit',14)+'</button></td></tr>').join('')+'</tbody></table></div>';
  el.innerHTML=h}
 function intoxReset(){
- $('#ift').textContent='New incident entry';$('#ig').selectedIndex=0;$('#idt').value=nowLocal();$('#in').value='';$('#igp').value='';$('#ial').value='';$('#ia').value='1';$('#iao').value='';actTog();$('#isb').textContent='Save incident';$('#icb').style.display='none';$('#idb').style.display='none'}
+ $('#ift').textContent='New incident entry';$('#ig').selectedIndex=0;setDT(nowLocal());$('#in').value='';$('#igp').value='';$('#ial').value='';$('#ia').value='1';$('#iao').value='';actTog();$('#isb').textContent='Save incident';$('#icb').style.display='none';$('#idb').style.display='none'}
 function intoxFill(id){
  const r=S.intox.find(x=>x.id===id);if(!r){V.edit=null;return intoxReset()}
- $('#ift').textContent='Edit incident';$('#ig').value=r.gate;$('#idt').value=r.dt;$('#in').value=r.name;$('#igp').value=r.gp;$('#ial').value=r.alc;
+ $('#ift').textContent='Edit incident';$('#ig').value=r.gate;setDT(r.dt);$('#in').value=r.name;$('#igp').value=r.gp;$('#ial').value=r.alc;
  if(r.act===ACT1){$('#ia').value='1';$('#iao').value=''}else{$('#ia').value='o';$('#iao').value=r.act}actTog();$('#isb').textContent='Update incident';$('#icb').style.display='inline-flex';$('#idb').style.display='inline-flex'}
 function intoxEdit(id){V.edit=id;intoxFill(id);$('#ift').scrollIntoView({behavior:'smooth',block:'center'})}
 function intoxSave(){
- const gate=$('#ig').value,dt=$('#idt').value,name=$('#in').value.trim(),gp=$('#igp').value.trim(),alc=$('#ial').value.trim();
+ const gate=$('#ig').value,dd=$('#idd').value,tm=$('#itm').value.trim(),name=$('#in').value.trim(),gp=$('#igp').value.trim(),alc=$('#ial').value.trim();
  const act=$('#ia').value==='1'?ACT1:$('#iao').value.trim();
- if(!dt)return toast('Please select the date and time',1);if(!name)return toast('Please enter the name',1);if(!gp)return toast('Please enter the gate pass no.',1);if(!alc)return toast('Please enter the alcohol no.',1);if(!act)return toast('Please enter the action taken',1);
+ if(!dd)return toast('Please select the date',1);if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(tm))return toast('Please enter a valid time in HH:MM (24-hour)',1);const dt=dd+'T'+tm;if(!name)return toast('Please enter the name',1);if(!gp)return toast('Please enter the gate pass no.',1);if(!alc)return toast('Please enter the alcohol no.',1);if(!act)return toast('Please enter the action taken',1);
  if(dt.slice(0,10)<START)return toast('Date cannot be before '+dmy(START),1);
  const o={gate:gate,dt:dt,name:name,gp:gp,alc:alc,act:act};
  if(V.edit){Object.assign(S.intox.find(x=>x.id===V.edit),o);V.edit=null;toast('Incident updated')}else{S.intox.push(Object.assign({id:uid()},o));toast('Incident saved')}
