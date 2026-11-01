@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Security Equipment Tracker – Control Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -333,6 +333,81 @@ html:not(.th-aurora):not(.th-mono) #hl .hl,html:not(.th-aurora):not(.th-mono) #h
 html:not(.th-aurora):not(.th-mono) #hl .hl:hover{color:#e2e8f0}
 html:not(.th-aurora):not(.th-mono) h1::before,html:not(.th-aurora):not(.th-mono) .kc::before{display:none}
 html:not(.th-aurora):not(.th-mono) .ddp{border-radius:.55rem;padding:.38rem .7rem}
+
+/* ---- month / year picker ---- */
+.dci{display:inline-flex;align-items:center;cursor:pointer}
+.dpw{position:relative;display:inline-flex;align-items:center}
+.mpop{position:fixed;z-index:110;width:250px;padding:.7rem;border-radius:.9rem;background:var(--mbg);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 80px -20px #000}
+.mph{display:flex;align-items:center;gap:6px;margin-bottom:.6rem}.mph .mpy{flex:1;padding:.35rem .5rem;text-align:center}
+.mpg2{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mpg2 button{padding:.5rem 0;border-radius:.55rem;border:1px solid transparent;background:rgba(255,255,255,.04);font-size:.8rem}
+.mpg2 button:hover:not(:disabled){border-color:var(--ac);background:rgba(56,189,248,.14)}
+.mpg2 button:disabled{opacity:.25;cursor:not-allowed}
+.mpg2 button.on{background:var(--ac);color:#fff;border-color:rgba(255,255,255,.4);font-weight:700}
+html.th-mono .mpg2 button.on{background:#e5e5e5;color:#0a0a0a}
+.mpf{display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
+
+/* ===== Look identical to CCTV Uptime Tracker (fonts, sizes, shapes, colours) ===== */
+:root{--tx:#e2e8f0}
+html,body{font-family:ui-sans-serif,system-ui,'Segoe UI',sans-serif;letter-spacing:0}
+html.th-aurora,html.th-aurora body,html.th-mono,html.th-mono body{font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,'Segoe UI',sans-serif;letter-spacing:-.006em}
+svg text{font-family:inherit}
+.ddp,#clk{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace}
+html.th-aurora .ddp,html.th-aurora #clk,html.th-mono .ddp,html.th-mono #clk{font-family:'JetBrains Mono',ui-monospace,monospace}
+#sb{width:14rem}#nav{gap:4px;margin-top:.5rem}
+.brand{gap:.5rem;padding:.75rem .5rem;font-weight:600;font-size:1rem}
+.logo{width:36px;height:36px;background:#fff;box-shadow:none}
+html.th-aurora .logo{box-shadow:0 0 0 3px rgba(139,124,255,.45),0 0 22px rgba(139,124,255,.45)}
+html.th-mono .logo{box-shadow:0 0 0 3px rgba(255,255,255,.45),0 0 22px rgba(255,255,255,.45)}
+header{padding:.75rem 1.25rem;gap:.75rem}
+#hl{margin-top:0!important;display:flex;gap:.75rem;font-size:.75rem;line-height:1rem}#hl .hsep{margin:0}
+#clk{font-size:.875rem}
+main{padding:1.25rem}
+/* default (Black) + Blue themes share CCTV shapes */
+html:not(.th-aurora):not(.th-mono) #nav button{gap:.75rem;padding:.625rem .75rem;border-radius:.5rem;font-size:.875rem;font-weight:400;color:#94a3b8;border:1px solid transparent}
+html:not(.th-aurora):not(.th-mono) #nav button svg{width:16px;height:16px;color:inherit}
+html:not(.th-aurora):not(.th-mono) #nav button:hover{background:rgba(255,255,255,.05);transform:none}
+html:not(.th-aurora):not(.th-mono) #nav button.on{background:rgba(14,165,233,.15);border-color:rgba(14,165,233,.4);color:#7dd3fc;box-shadow:none}
+html:not(.th-aurora):not(.th-mono) #nav button.on svg{color:#7dd3fc}
+html:not(.th-aurora):not(.th-mono) .ttl{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#e2e8f0;font-weight:700;font-size:1.125rem;line-height:1.75rem}
+html:not(.th-aurora):not(.th-mono) .hl{color:#94a3b8}
+html:not(.th-aurora):not(.th-mono) .btn{padding:.4rem .75rem;border-radius:.55rem;font-size:.78rem;font-weight:400;gap:.35rem}
+html:not(.th-aurora):not(.th-mono) .btn:hover{transform:none}
+html:not(.th-aurora):not(.th-mono) .btn svg{width:16px;height:16px}
+html:not(.th-aurora):not(.th-mono) .btn.ib{width:auto;height:auto;padding:.35rem .5rem;border-radius:.55rem}
+html:not(.th-aurora):not(.th-mono) header>.btn.ib svg{width:20px;height:20px}
+html:not(.th-aurora):not(.th-mono) .hr .btn.ib{padding:.375rem .5rem}
+html:not(.th-aurora):not(.th-mono) .btn.pri{background:#15803d;border-color:#22c55e;box-shadow:none}
+html:not(.th-aurora):not(.th-mono) .btn.dng{background:#be123c;border-color:#fb7185}
+html:not(.th-aurora):not(.th-mono) .ddp{border-radius:.55rem;padding:.38rem .7rem;gap:.35rem;border-color:#38bdf8}
+html:not(.th-aurora):not(.th-mono) .live{border-radius:.25rem;font-size:11px;padding:.25rem .5rem}
+html:not(.th-aurora):not(.th-mono) #un{font-weight:400!important;font-size:.85rem!important;padding:.45rem .65rem;border-radius:.55rem;border:1px solid rgba(255,255,255,.12)}
+html:not(.th-aurora):not(.th-mono) .card{border-radius:.9rem;box-shadow:none;backdrop-filter:none}
+html:not(.th-aurora):not(.th-mono) .mb{border-radius:.9rem}
+html:not(.th-aurora):not(.th-mono) .in{border-radius:.55rem;padding:.45rem .65rem;font-size:.85rem}
+html:not(.th-aurora):not(.th-mono) .in:focus{border-color:#38bdf8;box-shadow:none}
+html:not(.th-aurora):not(.th-mono) th{font-size:.72rem;font-weight:500}
+html:not(.th-aurora):not(.th-mono) h1{font-size:1.5rem;line-height:2rem;font-weight:700;letter-spacing:.025em;text-transform:uppercase}
+html:not(.th-aurora):not(.th-mono) h1::before{display:none}
+html:not(.th-aurora):not(.th-mono) .dfit>h1{font-size:1.125rem;line-height:1.75rem}
+html:not(.th-aurora):not(.th-mono) .tb{letter-spacing:0;text-transform:none}
+html.th-aurora h1,html.th-mono h1{font-size:1.05rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+html.th-aurora .tb,html.th-mono .tb{letter-spacing:0;text-transform:none}
+/* Black theme = CCTV black: flat #0a0a0c surfaces */
+html:not(.th-blue):not(.th-aurora):not(.th-mono),html:not(.th-blue):not(.th-aurora):not(.th-mono) body{background:#0a0a0c!important}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .card,html:not(.th-blue):not(.th-aurora):not(.th-mono) header,html:not(.th-blue):not(.th-aurora):not(.th-mono) #sb{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015)),#0a0a0c;border-color:rgba(255,255,255,.075)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .in,html:not(.th-blue):not(.th-aurora):not(.th-mono) #un{background:#0a0a0c;border-color:rgba(255,255,255,.12)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .btn{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .btn:hover{background:rgba(255,255,255,.1)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .btn.pri{background:#15803d;border-color:#22c55e}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .btn.dng{background:#be123c;border-color:#fb7185}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) .ddp{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
+html:not(.th-blue):not(.th-aurora):not(.th-mono) th{border-bottom-color:rgba(255,255,255,.1)}
+/* Blue theme = CCTV blue */
+html.th-blue th{border-bottom-color:#1d3f91}html.th-blue td{border-bottom-color:#12296b}
+html.th-blue #un{background:#050d1f;border-color:#1d3f91}
+html.th-blue .ddp{background:rgba(56,189,248,.1)}
+@media(max-width:1023px){html:not(.th-aurora):not(.th-mono) h1{font-size:1.05rem}}
 </style></head><body>
 <div class="wrap">
 <div id="sbbk" class="noprint" onclick="sbT(0)"></div>
@@ -345,7 +420,7 @@ html:not(.th-aurora):not(.th-mono) .ddp{border-radius:.55rem;padding:.38rem .7re
 <header class="noprint">
  <button class="btn ib" onclick="sbT()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
  <div><div class="ttl">Security Equipment Tracker</div><div class="sub" id="hl" style="margin-top:6px"></div></div>
- <div style="display:flex;gap:8px;align-items:center"><button class="btn" onclick="dnav(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Prev</button><button class="btn" id="nx" onclick="dnav(1)">Next<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button><span class="ddp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><b id="dd"></b><input type="date" id="dpk" onchange="dset(this.value)"></span></div>
+ <div style="display:flex;gap:8px;align-items:center"><button class="btn" onclick="dnav(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Prev</button><button class="btn" id="nx" onclick="dnav(1)">Next<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button><span class="ddp"><span class="dci" id="dci" title="Select year &amp; month" onclick="dciDbl(event)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="dpw"><b id="dd"></b><input type="date" id="dpk" onchange="dset(this.value)"></span></span></div>
  <div class="hr"><span class="live" id="syn" data-s="load"><i class="lvd"></i>Connecting…</span><button class="btn ib" onclick="fsT()" aria-label="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button><span id="clk"></span><b id="un" style="font-size:.86rem"></b></div>
 </header>
 <main id="main"></main>
@@ -363,6 +438,12 @@ const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return iso(d)};
 const dmy=s=>{const[y,m,d]=s.slice(0,10).split('-');return d+'-'+m+'-'+y};
 const START='2026-10-01',TARGET=95;
 const TODAY=()=>{const t=iso(new Date());return t<START?START:t};
+const MNF=['January','February','March','April','May','June','July','August','September','October','November','December'],MNS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+/* month window: first..last day of 'YYYY-MM', clipped to [START, today] */
+function monR(ym){const y=+ym.slice(0,4),m=+ym.slice(5,7),t=TODAY();let a=ym+'-01',b=ym+'-'+p2(new Date(y,m,0).getDate());if(a<START)a=START;if(b>t)b=t;return[a,b]}
+function monList(){const t=TODAY(),r=[];let y=+START.slice(0,4),m=+START.slice(5,7);const ty=+t.slice(0,4),tm=+t.slice(5,7);while(y<ty||(y===ty&&m<=tm)){r.push(y+'-'+p2(m));if(++m>12){m=1;y++}}return r}
+const monEnd=ym=>ym+'-'+p2(new Date(+ym.slice(0,4),+ym.slice(5,7),0).getDate());
+const monName=ym=>MNF[+ym.slice(5,7)-1]+' '+ym.slice(0,4);
 const rng=(a,b)=>{const r=[];let c=a;while(c<=b){r.push(c);c=addD(c,1)}return r};
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const nowLocal=()=>{const d=new Date();return iso(d)+'T'+p2(d.getHours())+':'+p2(d.getMinutes())};
@@ -445,6 +526,7 @@ function setSt(sec,id,days,s,r,m,ft,tt){days.forEach((d,i)=>{const k=sK(sec,id,d
 const V={sec:(location.hash||'#dash').slice(1),date:TODAY(),per:'all',q:'',edit:null,eqOpen:false,dxA:1};
 if(!secOf(V.sec))V.sec='dash';
 function perR(){const e=V.date;if(V.per==='all')return[START,e];const n={'1d':1,'1w':7,'1m':30}[V.per];const s=addD(e,-(n-1));return[s<START?START:s,e]}
+const MR=()=>monR(V.date.slice(0,7));
 const PN={all:'All time','1m':'1 Month','1w':'1 Week','1d':'1 Day'};
 
 /* ---------- shell ---------- */
@@ -458,6 +540,22 @@ function toast(m,err){const t=$('#toast');t.textContent=m;t.className=err?'err':
 function openM(h){$('#mbx').innerHTML=h;$('#md').classList.add('open')}
 function closeM(){$('#md').classList.remove('open')}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+/* ---------- month / year picker (double-click the calendar icon) ---------- */
+let MP={y:0};
+function mpClose(){const e=$('#mpop');if(e)e.remove()}
+function dciClick(){clearTimeout(dciClick.t);dciClick.t=setTimeout(()=>{const p=$('#dpk');try{p.showPicker()}catch(e){try{p.focus();p.click()}catch(_){}}},260)}
+function dciDbl(ev){ev.preventDefault();ev.stopPropagation();clearTimeout(dciClick.t);mpOpen()}
+function mpOpen(){mpClose();MP.y=+V.date.slice(0,4);const el=document.createElement('div');el.id='mpop';el.className='mpop';document.body.appendChild(el);mpDraw();const r=$('.ddp').getBoundingClientRect();el.style.top=(r.bottom+8)+'px';el.style.left=Math.max(8,Math.min(r.left,innerWidth-el.offsetWidth-8))+'px'}
+function mpDraw(){const el=$('#mpop');if(!el)return;const y0=+START.slice(0,4),t=TODAY(),y1=+t.slice(0,4),cur=V.date.slice(0,7),mn0=START.slice(0,7),mn1=t.slice(0,7);
+ let yo='';for(let y=y0;y<=y1;y++)yo+='<option value="'+y+'"'+(y===MP.y?' selected':'')+'>'+y+'</option>';
+ let h='<div class="mph"><button class="btn" '+(MP.y<=y0?'disabled':'')+' onclick="mpY(-1)" aria-label="Previous year">‹</button><select class="in mpy" onchange="MP.y=+this.value;mpDraw()">'+yo+'</select><button class="btn" '+(MP.y>=y1?'disabled':'')+' onclick="mpY(1)" aria-label="Next year">›</button></div><div class="mpg2">';
+ for(let m=1;m<=12;m++){const ym=MP.y+'-'+p2(m),dis=ym<mn0||ym>mn1;h+='<button '+(dis?'disabled ':'')+'class="'+(ym===cur?'on':'')+'" onclick="mpPick(\''+ym+'\')">'+MNS[m-1]+'</button>'}
+ h+='</div><div class="mpf"><span class="sub">'+monName(cur)+'</span><button class="btn" onclick="mpPick(\''+mn1+'\')">This month</button></div>';el.innerHTML=h}
+function mpY(n){MP.y+=n;mpDraw()}
+function mpPick(ym){mpClose();if(V.date.slice(0,7)!==ym){V.date=monR(ym)[1]}R();window.scrollTo(0,0)}
+document.addEventListener('mousedown',e=>{const p=$('#mpop');if(p&&!p.contains(e.target)&&!e.target.closest('#dci'))mpClose()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')mpClose()});
+
 function eqOne(sec,id){go(sec);V.eqF=id;R();window.scrollTo(0,0)}
 function evReason(i){const r=V.rl&&V.rl[i];if(r==null)return;const a=V.rA,b=V.rB;go('ev');V.evf={sec:'',st:'',a:a||START,b:(!b||b===TODAY())?'':b,rs:r};R();window.scrollTo(0,0)}
 function intoxGate(i){const g=GATES[i];if(!g)return;go('intox');V.ig=g;R();window.scrollTo(0,0)}
@@ -549,8 +647,8 @@ function vDash(){
 /* ---------- settings ---------- */
 const THEMES=['black','blue','aurora','mono'];let THEME='black';try{const _x=localStorage.getItem('sec_theme');if(THEMES.includes(_x))THEME=_x}catch(e){}
 function setTheme(m){THEME=m;const c=document.documentElement.classList;THEMES.forEach(x=>c.remove('th-'+x));if(m!=='black')c.add('th-'+m);try{localStorage.setItem('sec_theme',m)}catch(e){}R.keep=1;R();R.keep=0}
-function setUName(v){v=v.trim();if(v){S.uname=v;save();toast('Name updated')}R()}
-function setPlant(v){v=v.trim();if(v){S.plant=v;save();toast('Plant name updated')}R()}
+function setUName(){const v=(($('#sun')||{}).value||'').trim();if(!v){toast('Name cannot be empty',1);return}S.uname=v;save();toast('Name saved');R()}
+function setPlant(){const v=(($('#spn')||{}).value||'').trim();if(!v){toast('Company / Plant name cannot be empty',1);return}S.plant=v;save();toast('Company / Plant name saved');R()}
 function vSet(){
  const tb=(m,l)=>'<button class="btn '+(THEME===m?'pri':'')+'" onclick="setTheme(\''+m+'\')">'+l+'</button>';
  const fl=(l,b)=>'<div><label class="f">'+l+'</label>'+b+'</div>';
@@ -558,38 +656,38 @@ function vSet(){
  return '<h1>Settings</h1><div class="card" style="max-width:580px;display:flex;flex-direction:column;gap:18px">'
  +fl('Theme 1','<div class="sset">'+tb('black','⚫ Black')+tb('blue','🔵 Blue')+'</div>')
  +fl('Theme 2','<div class="sset">'+tb('aurora','🟣 Aurora')+tb('mono','◻️ Mono (Black · Grey · White)')+'</div><div class="sub" style="margin-top:6px">The theme you select is remembered and applied the next time the website opens.</div>')
- +fl('Your name (shown in the header)','<input class="in" value="'+esc(S.uname)+'" onchange="setUName(this.value)">')
- +fl('Company / Plant name (printed on exported reports)','<input class="in" value="'+esc(S.plant)+'" onchange="setPlant(this.value)">')
+ +fl('Your name (shown in the header)','<input class="in" id="sun" value="'+esc(S.uname)+'" onkeydown="if(event.key===\'Enter\')setUName()"><div style="margin-top:.6rem"><button class="btn pri" onclick="setUName()">Save</button></div>')
+ +fl('Company / Plant name (printed on exported reports)','<input class="in" id="spn" value="'+esc(S.plant)+'" onkeydown="if(event.key===\'Enter\')setPlant()"><div style="margin-top:.6rem"><button class="btn pri" onclick="setPlant()">Save</button></div>')
  +'<div style="font-size:.82rem;line-height:1.7;color:#cbd5e1">Report period: '+dmy(START)+' → '+dmy(TODAY())+'<br>Total equipment: '+ne+' · Intoxication records: '+S.intox.length+'<br>Intoxication gates: '+GATES.join(', ')+'</div>'
  +'<div class="sub">Data is saved to the cloud (Supabase) and cached in this browser, so it is available on every device. Use the Backup / Restore buttons in the sidebar to keep an offline copy.</div></div>'}
 
 /* ---------- equipment section ---------- */
 function vEq(sec){
- const sc=secOf(sec),LA=S.eq[sec],d=V.date,t=TODAY(),[a,b]=perR(),days=rng(START,t);
+ const sc=secOf(sec),LA=S.eq[sec],d=V.date,t=TODAY(),[ma,mb]=MR(),days=rng(ma,monEnd(V.date.slice(0,7)));
  if(V.eqF&&!LA.some(e=>e.id===V.eqF))V.eqF=null;
  const L=V.eqF?LA.filter(e=>e.id===V.eqF):LA;
  let n=0,ok=0,dn=0,mn=0;LA.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
- const sx=secStats(sec,START,t);
+ const sx=secStats(sec,ma,mb),mn_=monName(V.date.slice(0,7));
  let h='<h1>'+sc.n+'<span class="tb"><button class="btn pri" onclick="eqForm(\''+sec+'\')">'+ico('plus',15)+'Add equipment</button><button class="btn" onclick="xlDaily(\''+sec+'\')">'+ico('dl',15)+'Excel</button><button class="btn" onclick="window.print()">'+ico('pr',15)+'Print</button></span></h1>';
  const kc=(l,v,s,c)=>'<div class="card kc"><div class="kl">'+l+'</div><div class="kv" style="color:'+c+'">'+v+'</div><div class="ks">'+s+'</div></div>';
- h+='<div class="g k5">'+kc('Total',n,'on '+dmy(d),'#fff')+kc('Working',ok,'on '+dmy(d),'#4ade80')+kc('Not working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(sx.av),dmy(START)+' → '+dmy(t),colAv(sx.av))+'</div>';
+ h+='<div class="g k5">'+kc('Total',n,'on '+dmy(d),'#fff')+kc('Working',ok,'on '+dmy(d),'#4ade80')+kc('Not working',dn,'Needs attention','#fb3b5c')+kc('Maintenance',mn,'Under maintenance','#fbbf24')+kc('Availability',fp(sx.av),mn_,colAv(sx.av))+'</div>';
  // list
  if(V.eqF&&L[0])h+='<div class="card" style="margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b>Showing only: '+esc(L[0].name)+'</b><span class="sub">'+esc(L[0].loc||'')+(L[0].code?' · '+esc(L[0].code):'')+'</span><span class="fchip">All dates<button onclick="V.eqF=null;R.keep=1;R();R.keep=0">Show all equipment</button></span></div>';
  const hTop=h;h='';
  h+='<div class="card"><div class="ct" style="cursor:pointer;user-select:none;-webkit-user-select:none;'+(V.eqOpen?'':'margin-bottom:0')+'" onclick="eqTog()" role="button" aria-expanded="'+V.eqOpen+'"><span style="color:#38bdf8;font-size:.95rem;width:1rem;display:inline-block">'+(V.eqOpen?'▼':'▶')+'</span>Equipment list · status on '+dmy(d)+'<small>'+(V.eqOpen?'click a status to change it':'tap to show the list')+'</small></div>';
  if(!V.eqOpen){}else if(!L.length)h+='<div class="empty">No equipment yet. Use “Add equipment” to add one.</div>';
  else{h+='<div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>ID / serial</th><th>Location</th><th>Status</th><th>Reason / Remark</th><th>Availability</th><th style="text-align:right">Action</th></tr></thead><tbody id="eqtb">';
-  L.forEach((e,i)=>{const s=stAt(sec,e,d),r=S.st[sK(sec,e.id,d)]||{},x=eqStats(sec,e,START,t);
+  L.forEach((e,i)=>{const s=stAt(sec,e,d),r=S.st[sK(sec,e.id,d)]||{},x=eqStats(sec,e,ma,mb);
    h+='<tr data-id="'+e.id+'"><td>'+(i+1)+'</td><td><b>'+esc(e.name)+'</b>'+(e.rem?'<div class="sub">'+esc(e.rem)+'</div>':'')+'</td><td class="mono">'+esc(e.code||'—')+'</td><td>'+esc(e.loc||'—')+'</td><td>'+(s==='nd'?'<span class="bdg b-nd" style="cursor:default">Not tracked</span>':'<button class="bdg b-'+s+'" onclick="stForm(\''+sec+'\',\''+e.id+'\',\''+d+'\')"><span class="dt" style="color:'+ST[s].c+'"></span>'+ST[s].n+'</button>')+'</td><td class="sub" style="font-size:.74rem">'+(r.r?esc(r.r):'')+(r.m?(r.r?' · ':'')+esc(r.m):'')+'</td><td class="pv" style="color:'+colAv(x.av)+'">'+fp(x.av)+'</td><td style="text-align:right;white-space:nowrap"><button class="btn ib" onclick="eqForm(\''+sec+'\',\''+e.id+'\')" title="Edit">'+ico('edit',14)+'</button><button class="btn ib dh" onpointerdown="dgStart(event,\''+sec+'\',\''+e.id+'\')" title="Drag to reorder" aria-label="Drag">'+ico('grip',14)+'</button></td></tr>'});
   h+='</tbody></table></div>'}
  h+='</div>';
  const hList=h;h='';
  // daily grid
- h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22c55e"></span>Daily report · '+dmy(START)+' → '+dmy(t)+'<small>Click a cell to change the status for that day</small></div><div class="lgd"><span><i class="s-ok"></i>Working</span><span><i class="s-down"></i>Not Working</span><span><i class="s-mnt"></i>Maintenance</span><span><i class="s-nd"></i>Not tracked</span></div>';
+ h+='<div class="card" style="margin-bottom:12px"><div class="ct"><span class="dt" style="color:#22c55e"></span>Daily report · '+mn_+' · '+dmy(ma)+' → '+dmy(days[days.length-1])+'<small>Click a cell to change the status for that day</small></div><div class="lgd"><span><i class="s-ok"></i>Working</span><span><i class="s-down"></i>Not Working</span><span><i class="s-mnt"></i>Maintenance</span><span><i class="s-nd"></i>Not tracked</span></div>';
  if(!L.length)h+='<div class="empty">Add equipment to see the report.</div>';
  else{h+='<div class="gw"><table class="dg"><thead><tr><th class="n">Equipment</th>'+days.map(x=>'<th class="dh'+(x===d?' sel':'')+'" title="'+dmy(x)+'">'+x.slice(8)+'<small>'+WD[pd(x).getDay()]+'</small></th>').join('')+'<th class="a">Avail.</th></tr></thead><tbody>';
-  L.forEach(e=>{const x=eqStats(sec,e,START,t);h+='<tr><td class="n"><b>'+esc(e.name)+'</b><small>'+esc(e.loc||'')+'</small></td>'+days.map(dd=>{const s=stAt(sec,e,dd),r=S.st[sK(sec,e.id,dd)]||{};const tip=dmy(dd)+' – '+(s==='nd'?'Not tracked':ST[s].n)+(r.r?' ('+r.r+')':'')+(r.ft?' · Off '+r.ft:'')+(r.tt?' · On '+r.tt:'')+(r.m?' – '+r.m:'');return'<td class="c'+(dd===d?' sel':'')+'" title="'+esc(tip)+'" onclick="stForm(\''+sec+'\',\''+e.id+'\',\''+dd+'\')"><i class="s-'+s+'"></i></td>'}).join('')+'<td class="a pv" style="color:'+colAv(x.av)+'">'+fp(x.av)+'</td></tr>'});
-  h+='</tbody><tfoot><tr><td class="n">Not working / maint.</td>'+days.map(dd=>{let c=0;L.forEach(e=>{const s=stAt(sec,e,dd);if(s==='down'||s==='mnt')c++});return'<td style="color:'+(c?'#fb7185':'#4b5568')+'">'+c+'</td>'}).join('')+'<td></td></tr></tfoot></table></div>'}
+  L.forEach(e=>{const x=eqStats(sec,e,ma,mb);h+='<tr><td class="n"><b>'+esc(e.name)+'</b><small>'+esc(e.loc||'')+'</small></td>'+days.map(dd=>{const s=stAt(sec,e,dd),r=S.st[sK(sec,e.id,dd)]||{};const tip=dmy(dd)+' – '+(s==='nd'?'Not tracked':ST[s].n)+(r.r?' ('+r.r+')':'')+(r.ft?' · Off '+r.ft:'')+(r.tt?' · On '+r.tt:'')+(r.m?' – '+r.m:'');if(dd>t)return'<td class="c'+(dd===d?' sel':'')+'"></td>';return'<td class="c'+(dd===d?' sel':'')+'" title="'+esc(tip)+'" onclick="stForm(\''+sec+'\',\''+e.id+'\',\''+dd+'\')"><i class="s-'+s+'"></i></td>'}).join('')+'<td class="a pv" style="color:'+colAv(x.av)+'">'+fp(x.av)+'</td></tr>'});
+  h+='</tbody><tfoot><tr><td class="n">Not working / maint.</td>'+days.map(dd=>{if(dd>t)return'<td></td>';let c=0;L.forEach(e=>{const s=stAt(sec,e,dd);if(s==='down'||s==='mnt')c++});return'<td style="color:'+(c?'#fb7185':'#4b5568')+'">'+c+'</td>'}).join('')+'<td></td></tr></tfoot></table></div>'}
  return hTop+h+'</div>'+hList}
 function eqTog(){V.eqOpen=!V.eqOpen;R.keep=1;R();R.keep=0}
 
@@ -844,7 +942,7 @@ async function xlsModel(M){
     cols.forEach((c,ci)=>{const v=rw[ci],x=row.getCell(ci+1);x.border=B;x.fill=xfill(zb);
      x.font={name:'Calibri',size:10,color:{argb:'FF0F172A'}};x.alignment={vertical:'middle',horizontal:c.a==='c'?'center':'left',wrapText:!!c.wr,indent:c.a==='c'?0:1};
      if(c.t==='pct'){if(v==null){x.value='—'}else{x.value=v/100;x.numFmt=Math.abs(v-Math.round(v))<0.005?'0%':'0.00%';x.font={name:'Calibri',size:10,bold:true,color:{argb:v>=TARGET?'FF15803D':v>=80?'FFB45309':'FFBE123C'}}}}
-     else if(c.t==='ds'){x.value=v;x.fill=xfill(SF[v]||SF['-']);x.font={name:'Calibri',size:9,bold:true,color:{argb:'FF0F172A'}}}
+     else if(c.t==='ds'){x.value=v;x.fill=xfill(v===''?'FFFFFFFF':(SF[v]||SF['-']));x.font={name:'Calibri',size:9,bold:true,color:{argb:'FF0F172A'}}}
      else if(c.t==='cnt'){if(v>0){x.value=v;x.fill=xfill('FFFECACA');x.font={name:'Calibri',size:9,bold:true,color:{argb:'FFBE123C'}}}else{x.value='';}}
      else{x.value=v==null?'':v;if(c.st){const s=String(v);x.font={name:'Calibri',size:10,bold:true,color:{argb:/^Not/.test(s)?'FFBE123C':/^Maint/.test(s)?'FFB45309':/^Working/.test(s)?'FF15803D':'FF475569'}}}}})});
    if(!sh.rows.length){ws.mergeCells(hr+1,1,hr+1,n);const c=ws.getCell(hr+1,1);c.value='No records found';c.alignment={horizontal:'center'};c.font={italic:true,color:{argb:'FF64748B'}}}
@@ -852,21 +950,25 @@ async function xlsModel(M){
   let buf=await wb.xlsx.writeBuffer();buf=await noGreenTriangles(buf);dlBlob(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),M.file+'.xlsx');toast('Excel exported')
  }catch(err){console.error(err);toast('Excel export failed: '+err.message,1)}}
 function modEq(sec){
- const sc=secOf(sec),L=S.eq[sec],t=TODAY(),days=rng(START,t),d=V.date,tag=sc.n.replace(/\s/g,'-');
- let n=0,ok=0,dn=0,mn=0;L.forEach(e=>{if(d<e.since)return;n++;const s=stAt(sec,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
- const sx=secStats(sec,START,t),per=dmy(START)+' → '+dmy(t);
- const kpis=[['Total Equipment',n,'FF0F172A'],['Working',ok,'FF15803D'],['Not Working',dn,'FFBE123C'],['Maintenance',mn,'FFB45309'],['Availability',fp(sx.av),'FF1D4ED8'],['Days Covered',days.length,'FF0F172A']];
- const dc=days.map(x=>({h:String(parseInt(x.slice(8),10)),w:6,t:'ds',a:'c'}));
- const g=[],sm=[];
- L.forEach((e,i)=>{const x=eqStats(sec,e,START,t),s=stAt(sec,e,d),r=S.st[sK(sec,e.id,d)]||{};
-  g.push([i+1,e.name,e.loc||'',e.code||'',x.ok,x.dn,x.mn,x.av].concat(days.map(dd=>{const q=stAt(sec,e,dd);return q==='ok'?'W':q==='down'?'N':q==='mnt'?'M':'-'})));
-  sm.push([i+1,e.name,e.loc||'',e.code||'',s==='nd'?'Not tracked':ST[s].n,r.r||'',r.m||e.rem||'',x.av])});
- const log=[];Object.keys(S.st).forEach(k=>{const p=k.split('|');if(p[0]!==sec)return;const e=L.find(z=>z.id===p[1]);if(!e||p[2]<e.since||p[2]>t)return;const r=S.st[k];log.push([p[2],e.name,e.loc||'',ST[r.s].n,r.ft||'',r.tt||'',r.r||'',r.m||''])});
- log.sort((a,b)=>a[0].localeCompare(b[0])||a[1].localeCompare(b[1]));log.forEach((r,i)=>{r.unshift(i+1);r[1]=dmy(r[1])});
- const sheets=[
-  {name:'Daily Report',kpi:1,freeze:2,sub:sc.n+' Daily Report · '+per+' · W = Working · N = Not Working · M = Maintenance · – = Not tracked',cols:[{h:'S.No',w:7,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'ID / Serial',w:14,a:'c'},{h:'Working Days',w:11,a:'c'},{h:'Not Working Days',w:11,a:'c'},{h:'Maint. Days',w:11,a:'c'},{h:'Availability',w:13,a:'c',t:'pct'}].concat(dc),rows:g},
-  {name:'Equipment Summary',kpi:1,sub:sc.n+' · Equipment-wise summary · Status on '+dmy(d),cols:[{h:'S.No',w:7,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'ID / Serial',w:14,a:'c'},{h:'Status on '+dmy(d),w:18,a:'c',st:1},{h:'Reason',w:24},{h:'Remark',w:28,wr:1},{h:'Availability',w:13,a:'c',t:'pct'}],rows:sm},
-  {name:'Downtime Log',sub:sc.n+' · Not Working / Maintenance log · '+per,cols:[{h:'S.No',w:7,a:'c'},{h:'Date',w:12,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'Status',w:16,a:'c',st:1},{h:'Off Time',w:10,a:'c'},{h:'On Time',w:10,a:'c'},{h:'Reason',w:26},{h:'Remark',w:32,wr:1}],rows:log}];sheets[0].kpis=kpis;sheets[1].kpis=kpis;return{tag:tag,kpis:kpis,sheets:sheets}}
+ const sc=secOf(sec),L=S.eq[sec],d=V.date,tag=sc.n.replace(/\s/g,'-'),sheets=[],months=[];let kp0=null;
+ monList().forEach(ym=>{
+  const[a,b]=monR(ym),days=rng(a,monEnd(ym)),kd=(d>=a&&d<=b)?d:b,lab=MNS[+ym.slice(5,7)-1]+'-'+ym.slice(0,4),per=monName(ym)+' · '+dmy(a)+' → '+dmy(b);
+  let n=0,ok=0,dn=0,mn=0;L.forEach(e=>{if(kd<e.since)return;n++;const s=stAt(sec,e,kd);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});
+  const sx=secStats(sec,a,b);
+  const kpis=[['Total Equipment',n,'FF0F172A'],['Working',ok,'FF15803D'],['Not Working',dn,'FFBE123C'],['Maintenance',mn,'FFB45309'],['Availability',fp(sx.av),'FF1D4ED8'],['Days Covered',rng(a,b).length,'FF0F172A']];
+  if(!kp0)kp0=kpis;
+  const dc=days.map(x=>({h:String(parseInt(x.slice(8),10)),w:6,t:'ds',a:'c'}));
+  const g=[],sm=[];
+  L.forEach((e,i)=>{const x=eqStats(sec,e,a,b),s=stAt(sec,e,kd),r=S.st[sK(sec,e.id,kd)]||{};
+   g.push([i+1,e.name,e.loc||'',e.code||'',x.ok,x.dn,x.mn,x.av].concat(days.map(dd=>{if(dd>b)return'';const q=stAt(sec,e,dd);return q==='ok'?'W':q==='down'?'N':q==='mnt'?'M':'-'})));
+   sm.push([i+1,e.name,e.loc||'',e.code||'',s==='nd'?'Not tracked':ST[s].n,r.r||'',r.m||e.rem||'',x.av])});
+  const log=[];Object.keys(S.st).forEach(k=>{const p=k.split('|');if(p[0]!==sec)return;const e=L.find(z=>z.id===p[1]);if(!e||p[2]<e.since||p[2]<a||p[2]>b)return;const r=S.st[k];log.push([p[2],e.name,e.loc||'',ST[r.s].n,r.ft||'',r.tt||'',r.r||'',r.m||''])});
+  log.sort((x,y)=>x[0].localeCompare(y[0])||x[1].localeCompare(y[1]));log.forEach((r,i)=>{r.unshift(i+1);r[1]=dmy(r[1])});
+  const daily={name:'Daily '+lab,mtag:lab,kpi:1,kpis:kpis,freeze:2,sub:sc.n+' Daily Report · '+per+' · Status KPIs as on '+dmy(kd)+' · W = Working · N = Not Working · M = Maintenance · – = Not tracked',cols:[{h:'S.No',w:7,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'ID / Serial',w:14,a:'c'},{h:'Working Days',w:11,a:'c'},{h:'Not Working Days',w:11,a:'c'},{h:'Maint. Days',w:11,a:'c'},{h:'Availability',w:13,a:'c',t:'pct'}].concat(dc),rows:g};
+  const summ={name:'Summary '+lab,mtag:lab,kpi:1,kpis:kpis,sub:sc.n+' · Equipment-wise summary · '+per+' · Status on '+dmy(kd),cols:[{h:'S.No',w:7,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'ID / Serial',w:14,a:'c'},{h:'Status on '+dmy(kd),w:18,a:'c',st:1},{h:'Reason',w:24},{h:'Remark',w:28,wr:1},{h:'Availability',w:13,a:'c',t:'pct'}],rows:sm};
+  const lg={name:'Downtime '+lab,mtag:lab,sub:sc.n+' · Not Working / Maintenance log · '+per,cols:[{h:'S.No',w:7,a:'c'},{h:'Date',w:12,a:'c'},{h:'Equipment',w:22},{h:'Location',w:18},{h:'Status',w:16,a:'c',st:1},{h:'Off Time',w:10,a:'c'},{h:'On Time',w:10,a:'c'},{h:'Reason',w:26},{h:'Remark',w:32,wr:1}],rows:log};
+  sheets.push(daily,summ,lg);months.push(daily)});
+ return{tag:tag,kpis:kp0,sheets:sheets,months:months}}
 function xlDaily(sec){const m=modEq(sec);xlsModel({file:m.tag+'-Daily-Report-'+TODAY(),title:S.plant,kpis:m.kpis,sheets:m.sheets})}
 function modIntox(){
  const t=TODAY(),days=rng(START,t),A=S.intox.slice().sort((a,b)=>a.dt.localeCompare(b.dt)),per=dmy(START)+' → '+dmy(t);
@@ -892,12 +994,12 @@ function vMaster(){
  +'<div class="mxg">'+MX.map((k,i)=>'<label class="mxl"><input type="checkbox" '+(V.mx[k]?'checked':'')+' onchange="mxT(\''+k+'\',this.checked)"><b>'+(i+1)+'.</b>'+nm(k)+'</label>').join('')+'</div>'
  +'<div style="display:flex;gap:8px;margin:12px 0 4px"><button class="btn" onclick="mxAll(1)">Select all</button><button class="btn" onclick="mxAll(0)">Clear</button></div>'
  +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn pri" onclick="mxExcel()">'+ico('dl',15)+'Export Excel</button><button class="btn" onclick="mxPDF()">'+ico('dl',15)+'Export PDF</button><button class="btn" onclick="mxPrint()">'+ico('pr',15)+'Print</button></div>'
- +'<div class="sub" style="margin-top:14px;line-height:1.7">Report period: '+dmy(START)+' → '+dmy(TODAY())+' · Status on '+dmy(V.date)+'<br>Selected sections are exported together in one PDF / Print / Excel file, in sidebar order: the Summary first, then the daily report of each section (each section gets its own sheet in Excel).</div></div>'}
+ +'<div class="sub" style="margin-top:14px;line-height:1.7">Report period: '+dmy(START)+' → '+dmy(TODAY())+' · Status on '+dmy(V.date)+'<br>Selected sections are exported together in one PDF / Print / Excel file, in sidebar order: the Summary first, then the daily report of each section (each section gets its own sheet for every month in Excel).</div></div>'}
 function mxSheets(){
  const sel=mxSel(),eq=sel.filter(k=>k!=='intox'&&k!=='events'),t=TODAY(),d=V.date,per=dmy(START)+' → '+dmy(t),out=[];
  if(eq.length){let tn=0,tok=0,tdn=0,tmn=0,ao=0,at=0;const rows=eq.map((k,i)=>{let n=0,ok=0,dn=0,mn=0;S.eq[k].forEach(e=>{if(d<e.since)return;n++;const s=stAt(k,e,d);if(s==='ok')ok++;else if(s==='down')dn++;else mn++});const sx=secStats(k,START,t);tn+=n;tok+=ok;tdn+=dn;tmn+=mn;ao+=sx.ok;at+=sx.t;return[i+1,secOf(k).n,n,ok,dn,mn,sx.av]});
   out.push({name:'Summary',kpi:1,kpis:[['Total Equipment',tn,'FF0F172A'],['Working',tok,'FF15803D'],['Not Working',tdn,'FFBE123C'],['Maintenance',tmn,'FFB45309'],['Availability',fp(at?ao/at*100:null),'FF1D4ED8'],['Sections',eq.length,'FF0F172A']],sub:'Master Summary · '+per+' · Status on '+dmy(d),cols:[{h:'S.No',w:7,a:'c'},{h:'Section',w:26},{h:'Total Equipment',w:15,a:'c'},{h:'Working',w:11,a:'c'},{h:'Not Working',w:12,a:'c'},{h:'Maintenance',w:12,a:'c'},{h:'Availability',w:13,a:'c',t:'pct'}],rows:rows})}
- sel.forEach(k=>{if(k==='intox'){const s=modIntox().sheets[0];s.name='Intoxication Incident';out.push(s)}else if(k==='events'){const s=modEv(true).sheets[0];s.name='Events';out.push(s)}else{const s=modEq(k).sheets[0];s.name=secOf(k).n;out.push(s)}});
+ sel.forEach(k=>{if(k==='intox'){const s=modIntox().sheets[0];s.name='Intoxication Incident';out.push(s)}else if(k==='events'){const s=modEv(true).sheets[0];s.name='Events';out.push(s)}else{modEq(k).months.forEach(s=>{s.name=(secOf(k).n+' '+s.mtag).slice(0,31);out.push(s)})}});
  return out}
 function mxExcel(){const sh=mxSheets();if(!sh.length)return toast('Please select at least one section',1);xlsModel({file:'Master-Report-'+TODAY(),title:S.plant,sheets:sh})}
 const hexRGB=h=>[parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16),parseInt(h.slice(6,8),16)];
@@ -928,7 +1030,7 @@ function mxPDF(sh0,fn){
    headStyles:{fillColor:[29,63,145],textColor:[255,255,255],halign:'center',fontSize:7,fontStyle:'bold'},
    alternateRowStyles:{fillColor:[241,245,249]},columnStyles:cs,horizontalPageBreak:true,horizontalPageBreakRepeat:[0,1],
    didParseCell:function(d){if(d.section!=='body'||empty)return;const c=sh.cols[d.column.index],raw=sh.rows[d.row.index][d.column.index],s=d.cell.styles;
-    if(c.t==='ds'){s.fillColor=SC[raw]||[226,232,240];s.fontStyle='bold';s.halign='center'}
+    if(c.t==='ds'){s.fillColor=raw===''?[255,255,255]:(SC[raw]||[226,232,240]);s.fontStyle='bold';s.halign='center'}
     else if(c.t==='cnt'&&raw>0){s.fillColor=[254,202,202];s.textColor=[190,18,60];s.fontStyle='bold'}
     else if(c.t==='pct'&&raw!=null){s.fontStyle='bold';s.textColor=raw>=TARGET?[21,128,61]:raw>=80?[180,83,9]:[190,18,60]}
     else if(c.st){const x=String(raw);s.fontStyle='bold';s.textColor=/^Not/.test(x)?[190,18,60]:/^Maint/.test(x)?[180,83,9]:/^Working/.test(x)?[21,128,61]:[71,85,105]}}});
@@ -943,7 +1045,7 @@ function sheetHTML(sh){
  const SC={W:'#bbf7d0',N:'#fecaca',M:'#fde68a'};
  if(!sh.rows.length)h+='<tr><td colspan="'+sh.cols.length+'" style="text-align:center;font-style:italic">No records found</td></tr>';
  sh.rows.forEach(r=>{h+='<tr>'+sh.cols.map((c,i)=>{const v=r[i];
-  if(c.t==='ds')return'<td class="cc" style="background:'+(SC[v]||'#e2e8f0')+'">'+esc(v)+'</td>';
+  if(c.t==='ds')return'<td class="cc" style="background:'+(v===''?'#fff':(SC[v]||'#e2e8f0'))+'">'+esc(v)+'</td>';
   if(c.t==='cnt')return v>0?'<td class="cc" style="background:#fecaca;color:#be123c">'+v+'</td>':'<td class="cc"></td>';
   if(c.t==='pct')return'<td style="text-align:center;font-weight:700;color:'+(v==null?'#475569':v>=TARGET?'#15803d':v>=80?'#b45309':'#be123c')+'">'+pctTxt(v)+'</td>';
   let st='';if(c.a==='c')st+='text-align:center;';if(c.st){const x=String(v);st+='font-weight:700;color:'+(/^Not/.test(x)?'#be123c':/^Maint/.test(x)?'#b45309':/^Working/.test(x)?'#15803d':'#475569')}
